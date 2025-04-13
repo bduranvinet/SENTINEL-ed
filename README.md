@@ -64,22 +64,42 @@ Some noteworthy reviews and perspectives on CRISPR-based detection field are:
 
  <br/>
 
-## Installing ADAPT v1.6.0
+# Installing ADAPT v1.6.0
 
-### Dependencies
+## Dependencies
+
+>[!IMPORTANT]
+>The dependencies listed below are automatically installed via Bioconda and they differ from the original ADAPT. These changes has been tested and do not change the results quality, but allow better compatibility across systems. If you desire to install the original package, it has to be installed via pip or downloading the repository, but this is ONLY for advanced/dev users.
 
 ADAPT will install:
-* [Python](https://www.python.org) == 3.8
-* [NumPy](http://www.numpy.org) &gt;= 1.16.0, &lt; 1.19.0
-* [SciPy](https://www.scipy.org) == 1.4.1
-* [TensorFlow](https://www.tensorflow.org) == 2.3.2
+* [Python](https://www.python.org) == 3.8.18
+* [NumPy](http://www.numpy.org) == 1.24.3
+* [SciPy](https://www.scipy.org) == 1.10.1
+* [TensorFlow](https://www.tensorflow.org) == 2.11.0
 
 Using the thermodynamic modules of ADAPT requires:
 * [Primer3-py](https://libnano.github.io/primer3-py) == 0.6.1
 
 To run ADAPT, you will need conda installed on your Windows Linux Subsystem or macOS. Please make sure you install it before installing ADAPT; a short walkthrough is included below.
 
-### Installing conda for Linux subsystem
+## Step 1. Installing miniconda3 into your system
+
+### <ins>Status check<ins>
+
+>[!IMPORTANT]
+>If you have used the terminal before, you might have conda installed already.
+
+Please check if you already have conda installed
+
+```bash
+conda --version
+```
+
+This should provide a number (format xx.x.x), if you got an error, then conda is not installed in your computer. Proceed below.
+
+If you got a number, then please proceed to step 2.
+
+### <ins>Installing conda for Linux subsystem<ins>
 
 ```bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -87,7 +107,7 @@ bash Miniconda3-latest-Linux-x86_64.sh
 ```
 After this, restart your terminal. You should have a (base) before you prompt.
 
-### Installing conda for macOS
+### <ins>Installing conda for macOS<ins>
 
 >[!CAUTION]
 >Please make sure you install the correct conda version for Mac, as there are different MacOS architectures (amd64 and arm64); installing the incorrect one will bring downstream compiling errors.
@@ -97,3 +117,7 @@ curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
 bash Miniconda3-latest-MacOSX-*.sh
 ```
 After this, restart your terminal. You should have a (base) before you prompt.
+
+## Step 2. Creating an environment
+
+
