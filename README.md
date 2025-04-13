@@ -4,7 +4,6 @@
 > This is an educational repository for installing ADAPT dependencies for environmental deployments. Many things in this repository have been adapted from the [Original ADAPT repository](https://github.com/broadinstitute/adapt/blob/main/).
 
 
-
 ## Table of contents
 
 * [SENTINEL introduction](#sentinel-introduction)
@@ -24,29 +23,44 @@ This ADAPT platform will provide suitable ranked guide-target pairs for the give
 
 The ultimate objective of SENTINEL is to streamline and accelerate CRISPR-eBx deployments, whether from air, soil or water samples. So far, only water has been tested, but air and soil environmental samples are a promising deployment.
 
-## Quick glossary
+Most CRISPR-eBx deployments use an isothermal amplification method: RPA (recombinase polymerase amplification) and LAMP (Loop-mediated isothermal amplification). A quick illustration is shown below for RPA-CRISPR-Cas13a.
 
-**CRISPR-eBx**. CRISPR-based environmental biosurveillance, an alternative use of CRISPR to detect target species presence from environmental samples, targeting environmental nucleic acids. This could be for a broad range of applications including environmental viral vectors, elusive endangered species, invasive species and more.
+![RPA-CRISPR-Cas13a](Illustrations/SENTINEL.jpeg)
+
+
+---
+
+## Quick glossary
+> [!NOTE]
+> Reading this glossary will enhance the overall experience when going through the workshop and the manual.
+
+**CRISPR-eBx**, CRISPR-based environmental biosurveillance, an alternative use of CRISPR to detect target species presence from environmental samples, targeting environmental nucleic acids. This could be for a broad range of applications including environmental viral vectors, elusive endangered species, invasive species and more.
 
 **eNAs**, Environmental nucleic acids, often refer to all the DNA or RNA shredded or left behind in the environment by organisms or agents. eNAs includes environmental DNA (eDNA) and environmental RNA (eRNA).
 
 **Guide-target pairs**, this is defined as the construct of primers and specific gRNA that will detect a certain genomic region.
 
+**LAMP**, Loop-mediated isothermal amplification. One of the most used isothermal amplification methods, it uses around 4 - 6 primers and runs between 60-70C.
+
+**RPA**, Recombinase polymerase amplification. One of the most used isothermal amplification methods, it uses 2 primers, and runs between 25-42C.
+
+---
+
 Some noteworthy deployments of CRISPR-based environmental biosurveillance are:
 
-* **Biomonitoring of endangered fish** [
-* **Biomonitoring of endangered amphibians**
+* **Biomonitoring of endangered fish** [Williams et al., 2019 - The application of CRISPR-Cas for single species identification from environmental DNA in _Mol. Ecol. Res._]( https://doi.org/10.1111/1755-0998.13045)
+* **Biomonitoring of endangered amphibians** [Leugger et al., 2024 - Scanning amplicons with CRISPR-Dx detects endangered amphibians in environmental DNA in _Mol. Ecol. Res._](https://doi.org/10.1111/1755-0998.14009)
 * **Biomonitoring of marine invasive species**
 * **Quick, in-field biosurveillance** [Yang et al., 2024 - Rapid, easy, sensitive, low-­cost and on-­site detection of environmental DNA and RNA using CRISPR-­Cas13 in _Methods Ecol. Vol._](https://doi.org/10.1111/2041-210X.14369)
 
-Some noteworthy reviews and perspectives on CRISPR-based environments are:
+---
 
-* **CRISPR-based diagnostics** [Kaminsky et al., 2021 - CRISPR-based diagnostics in _Nat. Biomed. Eng_](https://doi.org/10.1038/s41551-021-00760-7)
+Some noteworthy reviews and perspectives on CRISPR-based detection field are:
 
-
-Most CRISPR-eBx deployments use an isothermal amplification method: RPA (recombinase polymerase amplification) and LAMP (Loop-mediated isothermal amplification). A quick illustration is shown below for RPA-CRISPR-Cas13a.
-
-![RPA-CRISPR-Cas13a](Illustrations/SENTINEL.jpeg)
+* **CRISPR-based diagnostics for harmful algal blooms** [Durán-Vinet et al., 2021 - Potential applications of CRISPR/Cas for next-generation biomonitoring of harmful algae blooms: A review in _Harmful Algae_](https://doi.org/10.1016/j.hal.2021.102027)
+* **CRISPR-based diagnostics** [Kaminsky et al., 2021 - CRISPR-based diagnostics in _Nat. Biomed. Eng._](https://doi.org/10.1038/s41551-021-00760-7)
+* **CRISPR-based diagnostics integrated with deep learning** [Durán-Vinet et al., 2023 - CRISPR-Cas-Based Biomonitoring for Marine Environments: Toward CRISPR RNA Design Optimization Via Deep Learning in _CRISPR J._](https://doi.org/10.1089/crispr.2023.0019)
+* **CRISPR-base depletion** [Kardailsky et al., 2025 - Monitoring the Land and Sea: Enhancing Efficiency Through CRISPR-Cas Driven Depletion and Enrichment of Environmental DNA in _CRISPR J._](https://doi.org/10.1089/crispr.2024.0050)
 
  <br/>
 
