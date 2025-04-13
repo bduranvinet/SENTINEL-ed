@@ -46,6 +46,8 @@ Some noteworthy reviews and perspectives on CRISPR-based environments are:
 
 Most CRISPR-eBx deployments use an isothermal amplification method: RPA (recombinase polymerase amplification) and LAMP (Loop-mediated isothermal amplification). A quick illustration is shown below for RPA-CRISPR-Cas13a.
 
+![RPA-CRISPR-Cas13a](Illustrations/SENTINEL.jpeg)
+
  <br/>
 
 ## Installing ADAPT v1.6.0
