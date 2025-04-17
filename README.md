@@ -20,6 +20,7 @@
     - [Step 3.1 Specific environment creation](#step-31-specific-environment-creation)
     - [Step 3.2 Working directories creation](#step-32-working-directories-creation)
     - [Step 3.3 ADAPT installation](#step-33-adapt-installation)
+- [Running ADAPT](#running-adapt)
     
  
 ## SENTINEL introduction
@@ -249,7 +250,9 @@ design.py --help
 ```
 <img width="579" alt="image" src="https://github.com/user-attachments/assets/2298b8ae-568d-4623-85d4-b9013fe1a55b" />
 
-If something similar displays, then ADAPT has been successfully installed. 'design.py' calls for the workflow activation, while '--help' provides specific information to run the workflow. All the meaningful commands for SENTINEL deployment can be found XXXX
+If something similar displays, then ADAPT has been successfully installed. 'design.py' calls for the workflow activation, while '--help' provides specific information to run the workflow. Check out the [Commands Explained](Useful/Commands%20explained.md) guide for more details.
+
+# Running ADAPT
 
 
 
