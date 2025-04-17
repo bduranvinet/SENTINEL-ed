@@ -254,6 +254,65 @@ If something similar displays, then ADAPT has been successfully installed. 'desi
 
 # Running ADAPT
 
+>[!TIP] 
+>Before starting~~
+>
+>Always keep a log of your --seed xxx number, this will ensure reproducibility in case you might need it.
+>
+>You can use [Sublime Text](https://www.sublimetext.com/) for quick command changes and [Benchling](https://www.benchling.com/) to keep a trackable record of what you have ran through the terminal.
+>
+>ADAPT can only read FASTA files. ADAPT will always assume they are aligned unless otherwise specified. It is recommended that aligned files be provided if possible.
+
+## Step 4. ADAPT example run
+
+>[!NOTE]
+>You can optionally use your own FASTA file. In fact, it is encouraged so you can get a useful product from this workshop. You can follow the same instructions provided below, just make sure to use the correct file name.
+
+### <ins> Step 4.1 Preparing example file <ins>
+
+In this same repository, go to the Example folder and download Test.fasta
+
+<img width="914" alt="image" src="https://github.com/user-attachments/assets/23e32b13-ee0c-4ad1-97d6-45b8589501fc" />
+
+Move Test.fasta into your 'Input' directory previously created. You can do this manually in Windows or Mac.
+
+### <ins> Step 4.2 Running pipeline <ins>
+
+Then, copy the following commands and paste them into your terminal.
+
+>[!WARNING]
+>Make sure you change your output file name or it will get OVERWRITTEN.
+>
+>Long sequences may require special commands to ensure a smooth run or eventually a server.
+
+```bash
+design.py complete-targets fasta ./input/Test.fasta -o ./output/example-output1 --obj maximize-activity --id-m 4 --id-frac 0.01 -gl 28 -gm 0 -pl 30 -pm 5 -pp 0.98 --primer-gc-content-bounds 0.35 0.70 --maximization-algorithm random-greedy --predict-cas13a-activity-model --best-n-targets 10 --seed 001 --verbose
+```
+'./' fills your path till your actual location in the terminal. The above command will only work if you are in the /SENTINELv1/ folder.
+
+This is how it will look when running
+
+<img width="573" alt="image" src="https://github.com/user-attachments/assets/01c4c7da-3276-42f1-90c0-cb7fb47afa9c" />
+
+### <ins> Step 4.3 Output retrieval <ins>
+
+You can see your output file as follows
+
+```bash
+cd output
+ls
+```
+
+<img width="593" alt="image" src="https://github.com/user-attachments/assets/5ef8ee08-e510-4d72-ad12-29f3a6ad7124" />
 
 
+Results will look similar to those shown below
+
+
+<img width="938" alt="image" src="https://github.com/user-attachments/assets/a1210f26-9913-42ac-83ec-beb863473ed0" />
+
+
+Explanation of the most important values are given xxxxx
+
+# Understanding ADAPT output
 
