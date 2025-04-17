@@ -1,0 +1,672 @@
+ ###########################################################################
+    # OPTIONS AVAILABLE ACROSS ALL SUBCOMMANDS
+    ###########################################################################
+ 
+    # Guide length
+    base_subparser.add_argument('-gl', '--guide-length', type=int, default=28,
+        help="Length of guide to construct")
+
+    # Objective function
+    base_subparser.add_argument('--obj',
+        choices=['maximize-activity', 'minimize-guides'],
+        default='maximize-activity',
+        help=(("Objective function to solve. 'maximize-activity' maximizes "
+               "the expected activity of the guide set of the target genomes "
+               "subject to soft and hard constraints on the size of the guide "
+               "set. 'minimize-guides' minimizes the number of guides in the "
+               "guide set subject to coverage constraints across the target "
+               "genomes.")))
+
+    ##########
+    
+    # Parameters for minimization objective
+
+    # Number of guide mismatches
+    base_subparser.add_argument('-gm', '--guide-mismatches', type=int,
+        help=("Allow for this number of mismatches when "
+              "determining whether a guide covers a sequence"))
+    ##########
+
+    ##########
+    # Parameters for maximization objective
+
+    # Soft guide constraint
+    base_subparser.add_argument('-sgc', '--soft-guide-constraint', type=int,
+        help=("Soft constraint on the number of guides. There is no "
+              "penalty for a number of guides <= SOFT_GUIDE_CONSTRAINT, "
+              "and having a number of guides beyond this is penalized. "
+              "See --penalty-strength. This value must be <= "
+              "HARD_GUIDE_CONSTRAINT."))
+    # Hard guide constraint
+    base_subparser.add_argument('-hgc', '--hard-guide-constraint', type=int,
+        help=("Hard constraint on the number of guides. The number of "
+              "guides designed for a target will be <= "
+              "HARD_GUIDE_CONSTRAINT."))
+    # Penalty strength
+    base_subparser.add_argument('--penalty-strength', type=float,
+        help=("Importance of the penalty when the number of guides "
+              "exceeds the soft guide constraint. Namely, for a guide "
+              "set G, if the penalty strength is L and the soft "
+              "guide constraint is h, then the penalty in the objective "
+              "function is L*max(0, |G|-h). Must be >= 0. The value "
+              "depends on the output of activity model and reflects a "
+              "tolerance for more guides; for the default activity model "
+              "reasonable values are in the range [0.1, 0.5]."))
+    # Algorithm for solving
+    base_subparser.add_argument('--maximization-algorithm',
+        choices=['greedy', 'random-greedy'],
+        help=("Algorithm to use for solving submodular maximization "
+              "problem. 'greedy' is the canonical deterministic greedy "
+              "algorithm (Nemhauser 1978) for constrained monotone submodular "
+              "maximization, which may perform well in practice but has "
+              "poor theoretical guarantees here because the function is "
+              "not monotone (unless --penalty-strength is 0). 'random-"
+              "greedy' is the randomized greedy algorithm (Buchbinder "
+              "2014) for constrained non-monotone submodular maximization "
+              "that has good worst-case theoretical guarantees."))
+    ##########
+
+    # Handling missing data
+    base_subparser.add_argument('--missing-thres', nargs=3,
+        type=float, default=[0.5, 0.05, 1.5],
+        help=("<A> <B> <C>; parameters governing the threshold on which sites "
+              "to ignore due to too much missing data. The 3 values specify "
+              "not to attempt to design guides overlapping sites where the "
+              "fraction of sequences with missing data is > min(A, max(B, C*m)) "
+              "where m is the median fraction of sequences with missing data "
+              "over the alignment. Set a=1 and b=1 to not ignore sites due "
+              "to missing data."))
+
+    # Differential identification
+    base_subparser.add_argument('--id-m', dest="diff_id_mismatches",
+        type=int, default=4,
+        help=("Allow for this number of mismatches when determining whether "
+              "a guide 'hits' a sequence in a group/taxon other than the "
+              "for which it is being designed; higher values correspond to more "
+              "specificity."))
+    base_subparser.add_argument('--id-frac', dest="diff_id_frac",
+        type=float, default=0.01,
+        help=("Decide that a guide 'hits' a group/taxon if it 'hits' a "
+              "fraction of sequences in that group/taxon that exceeds this "
+              "value; lower values correspond to more specificity."))
+    base_subparser.add_argument('--id-method', dest="diff_id_method",
+        choices=["lshnn", "shard"], default="shard",
+        help=("Choice of method to query for specificity. 'lshnn' for "
+              "LSH near-neighbor approach. 'shard' for approach that "
+              "shards k-mers across small tries."))
+    base_subparser.add_argument('--specific-against-fastas', nargs='+',
+        default=[],
+        help=("Path to one or more FASTA files giving sequences, such that "
+              "guides are designed to be specific against (i.e., not hit) "
+              "these sequences, according to --id-m and --id-frac. This "
+              "is equivalent to specifying the FASTAs in the main input "
+              "(as positional inputs), except that, when provided here, "
+              "guides are not designed for them and they do not "
+              "need to be aligned."))
+    base_subparser.add_argument('--specific-against-taxa',
+        help=("Path to TSV file giving giving taxonomies from which to "
+              "download all genomes and ensure guides are specific against "
+              "(i.e., not hit) these. The TSV file has 2 columns: (1) a "
+              "taxonomic ID; (2) segment label, or 'None' if unsegmented"))
+
+    # G-U pairing options
+    base_subparser.add_argument('--do-not-allow-gu-pairing', action='store_true',
+        help=("When determining whether a guide binds to a region of "
+              "target sequence, do not count G-U (wobble) base pairs as "
+              "matching. Default is to tolerate G-U pairing: namely, "
+              "A in an output guide sequence matches G in the "
+              "target and C in an output guide sequence matches T "
+              "in the target (since the synthesized guide is the reverse "
+              "complement of the output guide sequence)"))
+
+    # Requiring guides in the cover, and ignoring ranges and/or k-mers
+    base_subparser.add_argument('--required-guides',
+        help=("Path to a file that gives guide sequences that will be "
+              "included in the guide cover and output for the windows "
+              "in which they belong, e.g., if certain guide sequences are "
+              "shown experimentally to perform well. The file must have "
+              "3 columns: col 1 gives an identifier for the alignment "
+              "that the guide covers, such that i represents the i'th "
+              "FASTA given as input (0-based); col 2 gives a guide sequence; "
+              "col 3 gives the start position of the guide (0-based) in "
+              "the alignment"))
+    base_subparser.add_argument('--ignored-ranges',
+        help=("Path to a file that gives ranges in alignments from which "
+              "guides will not be constructed. The file must have 3 columns: "
+              "col 1 gives an identifier for the alignment that the range "
+              "corresponds to, such that i represents the i'th FASTA "
+              "given as input (0-based); col 2 gives the start position of "
+              "the range (inclusive); col 3 gives the end position of the "
+              "range (exclusive)"))
+    base_subparser.add_argument('--disallowed-kmers',
+        help=("Path to a FASTA file that gives k-mers to disallow from "
+              "guide sequences. No guide sequences will be constructed that "
+              "contain these k-mers. The k-mers make up the sequences in "
+              "the FASTA file; the sequence names are ignored. k-mers "
+              "should be long enough so that not too many guide sequences "
+              "are deemed to be unsuitable, and should be at most the "
+              "length of the guide"))
+
+    # Requiring flanking sequence (PFS)
+    base_subparser.add_argument('--require-flanking5',
+        help=("Require the given sequence on the 5' protospacer flanking "
+              "site (PFS) of each designed guide; this tolerates ambiguity "
+              "in the sequence (e.g., 'H' requires 'A', 'C', or 'T', or, "
+              "equivalently, avoids guides flanked by 'G'). Note that "
+              "this is the 5' end in the target sequence (not the spacer "
+              "sequence)."))
+    base_subparser.add_argument('--require-flanking3',
+        help=("Require the given sequence on the 3' protospacer flanking "
+              "site (PFS) of each designed guide; this tolerates ambiguity "
+              "in the sequence (e.g., 'H' requires 'A', 'C', or 'T', or, "
+              "equivalently, avoids guides flanked by 'G'). Note that "
+              "this is the 3' end in the target sequence (not the spacer "
+              "sequence)."))
+
+    # Use a model to predict activity
+    base_subparser.add_argument('--predict-activity-model-path',
+        nargs=2,
+        help=("Paths to directories containing serialized models in "
+              "TensorFlow's SavedModel format for predicting guide-target "
+              "activity. There are two arguments: (1) classification "
+              "model to determine which guides are active; (2) regression "
+              "model, which is used to determine which guides (among "
+              "active ones) are highly active. The models/ directory "
+              "contains example models. If neither this nor "
+              "predict-cas13a-activity-model is set, ADAPT does not "
+              "predict activities to use during design."))
+    base_subparser.add_argument('--predict-cas13a-activity-model',
+        nargs='*',
+        help=("If set, use ADAPT's premade Cas13a model to "
+              "predict guide-target activity. If neither this nor "
+              "predict-activity-model-path is set, ADAPT does not predict "
+              "activities to use during design. Optionally, two arguments can "
+              "be included to indicate version number, each in the format "
+              "'v1_0' or 'latest'. Versions will default to latest."))
+    base_subparser.add_argument('--predict-activity-thres',
+        type=float,
+        nargs=2,
+        help=("Thresholds to use for decisions on output of predictive "
+            "models. There are two arguments: (1) classification threshold "
+            "for deciding which guide-target pairs are active (in [0,1], "
+            "where higher values have higher precision but less recall); "
+            "(2) regression threshold for deciding which guide-target pairs "
+            "are highly active (>= 0, where higher values limit the number "
+            "determined to be highly active). If not set but --predict-"
+            "activity-model-path or --predict-cas13a-activity-model is set, "
+            "then ADAPT uses default thresholds stored with the models."))
+    base_subparser.add_argument('--use-simple-binary-activity-prediction',
+        action='store_true',
+        help=("If set, predict activity using a simple binary prediction "
+              "between guide and target according to their distance, with "
+              "the threshold determined based on --guide-mismatches. This "
+              "is only applicable when OBJ is 'maxmimize-activity'. This "
+              "does not use a serialized model for predicting activity, so "
+              "neither --predict-activity-model-path nor "
+              "--predict-cas13a-activity-model should be set when this "
+              "is set."))
+    # Predict activity degradation
+    base_subparser.add_argument('--predict-activity-degradation',
+        nargs=6, type=float,
+        help=("If set, predict the degradation in activity over time due to "
+              "substitution using the General Time-Reversible model. Six "
+              "arguments should be set: the relative rates of substitutions "
+              "per year between (1) A and C, (2) A and G, (3) A and T, "
+              "(4) C and G, (5) C and T, & (6) G and T. Each of these should "
+              "be between 0 and 1. Base pair frequencies will be calculated "
+              "from input sequences. The 5th percentile of simulated activities "
+              "will be reported."))
+    base_subparser.add_argument('--predict-activity-degradation-t',
+        type=int, default=5,
+        help=("Amount of time to simulate substitutions over, in years "
+              "(defaults to 5)"))
+    base_subparser.add_argument('--predict-activity-degradation-mu',
+        type=float, default=0.001,
+        help=("Overall rate of substitutions per site per year (defaults to 0.001)"))
+    base_subparser.add_argument('--predict-activity-degradation-n',
+        type=int, default=500,
+        help=("Number of sequences to simulate mutations over (defaults "
+              "to 500). Higher values increase accuracy, but also increase"
+              "runtime."))
+
+    # Alignment
+    base_subparser.add_argument('--mafft-path',
+        help=("Path to mafft executable, used for generating alignments."
+              "Required for input types auto-from-args and auto-from-file. "
+              "Also required for input type 'fasta' if '--unaligned' is "
+              "specified"))
+    base_subparser.add_argument('--cluster-threshold',
+        type=float,
+        default=0.2,
+        help=(("Maximum inter-cluster distance to use when clustering "
+               "input sequences prior to alignment. Expressed as average "
+               "nucleotide dissimilarity (1-ANI, where ANI is average "
+               "nucleotide identity); higher values result in fewer "
+               "clusters")))
+
+    # Technical options
+    base_subparser.add_argument('--do-not-memoize-oligo-computations',
+        action='store_true',
+        help=("If set, do not memoize computations during the search, "
+              "including of oligos identified at each site and of "
+              "specificity queries. This can be helpful for benchmarking "
+              "the improvement of memoization, or if there is reason "
+              "to believe memoization will slow the search (e.g., "
+              "if possible amplicons rarely overlap). Note that activity "
+              "predictions are still memoized."))
+    base_subparser.add_argument('--seed', type=int,
+        help=("SEED will set the random seed, guaranteeing the same output "
+              "given the same inputs. If SEED is not set to the same value, "
+              "output may vary across different runs."))
+
+    # Log levels
+    base_subparser.add_argument("--debug",
+        dest="log_level",
+        action="store_const",
+        const=logging.DEBUG,
+        default=logging.WARNING,
+        help=("Debug output"))
+    base_subparser.add_argument("--verbose",
+        dest="log_level",
+        action="store_const",
+        const=logging.INFO,
+        help=("Verbose output"))
+    ###########################################################################
+
+    ###########################################################################
+    # SUBCOMMANDS FOR SEARCH TYPE
+    ###########################################################################
+    search_subparsers = parser.add_subparsers(dest='search_cmd')
+
+    # Subcommand: sliding-window
+    parser_sw = search_subparsers.add_parser('sliding-window',
+        help=("Search for guides within a sliding window of a fixed size, "
+              "and output the optimal guide set for each window"))
+    parser_sw_args = argparse.ArgumentParser(add_help=False)
+    parser_sw_args.add_argument('-w', '--window-size', type=int, default=200,
+        help=("Ensure that selected guides are all a "
+              "window of this size"))
+    parser_sw_args.add_argument('--window-step', type=int, default=1,
+        help=("Amount by which to increase the window start position for "
+              "every iteration"))
+    parser_sw_args.add_argument('--sort', dest='sort_out', action='store_true',
+        help=("If set, sort output TSV by number of guides "
+              "(ascending) then by score (descending); "
+              "default is to sort by window position"))
+
+    # Subcommand: complete-targets
+    parser_ct = search_subparsers.add_parser('complete-targets',
+        help=("Search for primer pairs and guides between them. This "
+              "outputs the best BEST_N_TARGETS according to a cost "
+              "function, where each target contains primers that bound "
+              "an amplicon and a guide set within that amplicon."))
+    parser_ct_args = argparse.ArgumentParser(add_help=False)
+    parser_ct_args.add_argument('-pl', '--primer-length', type=int, default=30,
+        help=("Length of primer in nt"))
+    parser_ct_args.add_argument('-pp', '--primer-cover-frac',
+        type=check_cover_frac, default=1.0,
+        help=("Same as --cover-frac, except for the design of primers -- "
+              "i.e., the fraction of sequences that must be covered "
+              "by the primers, independently on each end"))
+    parser_ct_args.add_argument('-pm', '--primer-mismatches',
+        type=int, default=0,
+        help=("Allow for this number of mismatches when determining "
+              "whether a primer hybridizes to a sequence"))
+    # parser_ct_args.add_argument('-ptm', '--primer-terminal-mismatches',
+    #     type=int,
+    #     help=("Allow for this number of mismatches in the BASES_FROM_TERMINAL "
+    #           "bases from the 3' end when determining whether a primer "
+    #           "hybridizes to a sequence. Default is unset (and therefore "
+    #           "unused)."))
+    # parser_ct_args.add_argument('--bases-from-terminal',
+    #     type=int, default=5,
+    #     help=("Allow for PRIMER_TERMINAL_MISMATCHES in this many bases from "
+    #           "the 3' end when determining whether a primer hybridizes to a "
+    #           "sequence. Default is 5 and it is only used if "
+    #           "PRIMER_TERMINAL_MISMATCHES is set."))
+    parser_ct_args.add_argument('-pt', '--primer-thermo',
+        action='store_true',
+        help=("If set, use a thermodynamic model to determine whether primers "
+              "cover a sequence. This is particularly useful for PCR. While "
+              "this method uses the same optimization that the activity "
+              "models use, it is not guaranteed to be submodular."))
+    parser_ct_args.add_argument('--ideal-primer-melting-temperature',
+        type=float, default=60,
+        help=("Minimize the deviation of a primer's melting temperature from "
+              "IDEAL_MELTING_TEMPERATURE°C. Default is 60°C. Only used if "
+              "--primer-thermo is set."))
+
+    # Soft primer constraint
+    base_subparser.add_argument('-spc', '--soft-primer-constraint', type=int,
+        default=1,
+        help=("Soft constraint on the number of primers. There is no "
+              "penalty for a number of primers <= SOFT_PRIMER_CONSTRAINT, "
+              "and having a number of primers beyond this is penalized. "
+              "See --primer-penalty-strength. This value must be <= "
+              "HARD_PRIMER_CONSTRAINT. This is only used if --primer-thermo "
+              "is set."))
+    # Hard primer constraint
+    base_subparser.add_argument('-hpc', '--hard-primer-constraint', type=int,
+        default=5,
+        help=("Hard constraint on the number of primers. The number of "
+              "primers designed for a target will be <= "
+              "HARD_PRIMER_CONSTRAINT. This is only used if --primer-thermo "
+              "is set."))
+    # Penalty strength TODO find reasonable values experimentally
+    base_subparser.add_argument('--primer-penalty-strength', type=float,
+        default=0.25,
+        help=("Importance of the penalty when the number of primer "
+              "exceeds the soft primer constraint. Namely, for a primer "
+              "set G, if the penalty strength is L and the soft "
+              "guide constraint is h, then the penalty in the objective "
+              "function is L*max(0, |G|-h). Must be >= 0. "
+              "Reasonable values are in the range [0.1, 0.5]."))
+
+    # Set thermodynamic conditions
+    parser_ct_args.add_argument('-na', '--pcr-sodium-conc', type=float,
+        default=5e-2,
+        help=("Concentration of sodium (in mol/L). Can be used for the "
+              "concentration of all monovalent cations. Only used if "
+              "--primer-thermo or --guide-thermo is set. Defaults to "
+              "0.050 mol/L."))
+    parser_ct_args.add_argument('-mg', '--pcr-magnesium-conc', type=float,
+        default=2.5e-3,
+        help=("Concentration of magnesium (in mol/L). Can be used for the "
+              "concentration of all divalent cations. Only used if "
+              "--primer-thermo or --guide-thermo is set. Defaults to "
+              "0.0025 mol/L."))
+    parser_ct_args.add_argument('--pcr-dntp-conc', type=float,
+        default=1.6e-3,
+        help=("Concentration of dNTPs (in mol/L). Only used if "
+              "--primer-thermo or --guide-thermo is set. Defaults to "
+              "0.0016 mol/L."))
+    parser_ct_args.add_argument('--pcr-oligo-conc', type=float,
+        default=3e-7,
+        help=("Oligo concentration (in mol/L). Only used if "
+              "--primer-thermo or --guide-thermo is set. Defaults to "
+              "3e-7 mol/L."))
+    parser_ct_args.add_argument('--pcr-target-conc', type=float,
+        default=0,
+        help=("Target concentration (in mol/L). Only used if "
+              "--primer-thermo or --guide-thermo is set; only needed if "
+              "target concentration is not significantly less than oligo "
+              "concentration. Defaults to 0."))
+
+    parser_ct_args.add_argument('--max-primers-at-site', type=int,
+        help=("Only use primer sites that contain at most this number "
+              "of primers; if not set, there is no limit"))
+    parser_ct_args.add_argument('--primer-gc-content-bounds',
+            nargs=2, type=float,
+        help=("Only use primer sites where all primers are within the "
+              "given GC content bounds. This consists of two values L and H, "
+              "each fractions in [0,1], such that primer GC content must be "
+              "in [L, H]. If not set, there are no bounds."))
+    parser_ct_args.add_argument('--max-target-length', type=int,
+        help=("Only allow amplicons (incl. primers) to be at most this "
+              "number of nucleotides long; if not set, there is no limit"))
+    parser_ct_args.add_argument('--obj-fn-weights', type=float, nargs=2,
+        help=("Specify custom weights to use in the objective function "
+              "for a target. These specify weights for penalties on primers "
+              "and amplicons relative to the guide objective. There are "
+              "2 weights (A B), where the target objective function "
+              "is [(guide objective value) +/- (A*(primers "
+              "objective value) + B*log2(amplicon length)]. It is + when "
+              "--obj is minimize-guides and - when --obj is "
+              "maximize-activity."))
+    parser_ct_args.add_argument('--best-n-targets', type=int, default=10,
+        help=("Only compute and output up to this number of targets. Note "
+              "that runtime will generally be longer for higher values"))
+    parser_ct_args.add_argument('--halt-search-early',
+        action='store_true',
+        help=('If set, stop the target search as soon as BEST_N_TARGETS '
+              'have been identified. The targets will meet the given '
+              'constraints but may not be optimal over the whole genome. '
+              'They will likely be from the beginning of the genome.'))
+    parser_ct_args.add_argument('--only-account-for-amplified-seqs',
+        action='store_true',
+        help=("If set, design guides to cover GUIDE_COVER_FRAC of just "
+              "the sequences covered by the primers. This changes the "
+              "behavior of -gp/--guide-cover-frac. This is only "
+              "applicable when --obj is 'minimize-guides' as it is "
+              "not implemented for 'maximize-activity'. In total, "
+              ">= (GUIDE_COVER_FRAC * (2 * PRIMER_COVER_FRAC - 1)) "
+              "sequences will be covered. Using this may worsen runtime "
+              "because the sequences to consider for guide design will "
+              "change more often across amplicons and therefore designs "
+              "can be less easily memoized."))
+    parser_ct_args.add_argument('--do-not-overlap',
+        choices=['amplicon', 'primer', 'none'],
+        default='amplicon',
+        help=("What should be prevented from overlapping in the outputted targets. "
+              "'amplicon' (default) prevents overlapping amplicons (target ranges) "
+              "'primer' prevents both primers from overlapping (allowing 1 primer "
+              "overlap). 'none' allows targets to overlap. When not 'none', if a "
+              "target overlaps with a target already in the output, this *replaces* "
+              "the overlapping one with the new one if the new one has a better "
+              "objective value. When set to 'none', many targets in the "
+              "BEST_N_TARGETS may be very similar"))
+    ###########################################################################
+
+    ###########################################################################
+    # SUBCOMMANDS FOR INPUT TYPE
+    ###########################################################################
+    search_cmd_parsers = [(parser_sw, parser_sw_args),
+                          (parser_ct, parser_ct_args)]
+
+    # FASTA input
+    input_fasta_subparser = argparse.ArgumentParser(add_help=False)
+    input_fasta_subparser.add_argument('in_fasta', nargs='+',
+        help=("Path to input FASTA. More than one can be "
+              "given for differential identification"))
+    input_fasta_subparser.add_argument('-o', '--out-tsv',
+        nargs='+', required=True,
+        help=("Path to output TSV, without the file extension. If more than "
+              "one input FASTA is given, the same number of output TSVs must "
+              "be given; each output TSV corresponds to an input FASTA. If "
+              "FASTA is unaligned, a cluster number will be added."
+              "Filenames are 'OUT_TSV.[cluster-number].fasta'."))
+    input_fasta_subparser.add_argument('--cover-by-year-decay', nargs=3,
+        action=ParseCoverDecayWithYearsFile,
+        help=("<A> <B> <C>; if set, group input sequences by year and set a "
+              "desired partial cover for each year (fraction of sequences that "
+              "must be covered by guides) as follows: A is a tsv giving "
+              "a year for each input sequence (col 1 is sequence name "
+              "matching that in the input FASTA, col 2 is year). All years "
+              ">= A receive a desired cover fraction of GUIDE_COVER_FRAC "
+              "for guides (and PRIMER_COVER_FRAC for primers). Each preceding "
+              "year receives a desired cover fraction that decays by B -- "
+              "i.e., year n is given B*(desired cover fraction of year n+1)."))
+    input_fasta_subparser.add_argument('--weight-sequences', nargs='+',
+        help=("If set, file path to TSV giving a weight to each input "
+              "sequence (col 1 is sequence name matching that in the "
+              "respective input FASTA, col 2 is weight). If more than one "
+              "input FASTA is given, the same number of input TSVs must be "
+              "given; each input TSV corresponds to an input FASTA. The "
+              "weights will be normalized and used when calculating objective "
+              "scores and summary statistics. Any sequence not listed will be "
+              "given a default weight of 1."))
+    input_fasta_subparser.add_argument('--unaligned', action='store_true',
+        help=("If set, treats inputs as unaligned fastas and uses MAFFT to "
+              "align them, and --mafft-path is required"))
+    input_fasta_subparser.add_argument('--write-input-aln', nargs='+',
+        help=("Prefix of path to files to which to write the alignments "
+              "being used as input for design. If more than one input "
+              "FASTA is given, the same number of input alignments must "
+              "be given; each input alignment corresponds to an input FASTA."
+              "Filenames are 'WRITE_INPUT_ALN.[cluster-number].fasta'."))
+
+    # Auto prepare, common arguments
+    input_auto_common_subparser = argparse.ArgumentParser(add_help=False)
+    input_auto_common_subparser.add_argument('--prep-memoize-dir',
+        help=("Path to directory in which to memoize alignments and "
+              "statistics on them. If set to \"s3://BUCKET/PATH\", it "
+              "will save to the S3 bucket if boto3 and botocore are "
+              "installed and access key information exists via "
+              "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY or via AWS CLI. "
+              "If not set, this does not memoize this information."))
+    input_auto_common_subparser.add_argument('--sample-seqs', type=int,
+        help=("After fetching accessions, randomly select SAMPLE_SEQS of them "
+              "with replacement from each taxonomy any move forward "
+              "in the design with these. This is useful for testing and "
+              "measuring output growth as input size grows, as well as "
+              "assessing the dispersion in output associated with some "
+              "input sample."))
+    input_auto_common_subparser.add_argument('--cover-by-year-decay', nargs=2,
+        action=ParseCoverDecayByGeneratingYearsFile,
+        help=("<A> <B>; if set, group input sequences by year and set a "
+              "desired partial cover for each year (fraction of sequences that "
+              "must be covered by guides) as follows: All years "
+              ">= A receive a desired cover fraction of GUIDE_COVER_FRAC "
+              "for guides (and PRIMER_COVER_FRAC for primers). Each preceding "
+              "year receives a desired cover fraction that decays by B -- "
+              "i.e., year n is given B*(desired cover fraction of year n+1)."))
+    input_auto_common_subparser.add_argument('--weight-by-log-size-of-subtaxa',
+        help=("If set, weight sequences by the log of the number of sequences "
+              "that are in the same subtaxa of rank specified here (one of "
+              "'subspecies', 'species', 'subgenus', or 'genus'). Must be a "
+              "smaller rank than the taxon being designed for. The weights "
+              "will be normalized and used when calculating expected activity "
+              "and percent coverage."))
+    input_auto_common_subparser.add_argument('--use-accessions',
+        help=("If set, use specified accessions instead of fetching neighbors "
+              "for the given taxonomic ID(s). This provides a path to a TSV "
+              "file with 3 columns: (1) a taxonomic ID; (2) segment label, "
+              "or 'None' if unsegmented; (3) accession. Each row specifies "
+              "an accession to use in the input, and values for columns 1 "
+              "and 2 can appear in multiple rows."))
+    input_auto_common_subparser.add_argument('--use-fasta',
+        help=("If set, use sequences in fasta instead of fetching neighbors "
+              "for the given taxonomic ID(s). This provides a path to a TSV "
+              "file with 3 columns: (1) a taxonomic ID; (2) segment label, "
+              "or 'None' if unsegmented; (3) path to FASTA."))
+    input_auto_common_subparser.add_argument('--only-design-for',
+        help=("If set, only design for given taxonomies. This provides a "
+              "path to a TSV file with 2 columns: (1) a taxonomic ID; (2) "
+              "segment label, or 'None' if unsegmented"))
+    input_auto_common_subparser.add_argument('--taxa-to-ignore-for-specificity',
+        help=("If set, specify which taxa should be ignored when "
+              "enforcing specificity while designing for other taxa. "
+              "This provides a path to a TSV file with 2 columns: "
+              "(1) a taxonomic ID A; (2) a taxonomic ID B such that "
+              "B should be ignored when determining specificity for A. "
+              "When designing for A, this masks taxonomy B from all "
+              "specificity queries. This is useful, e.g., if B is a "
+              "subset of A."))
+    input_auto_common_subparser.add_argument('--ncbi-api-key',
+        help=("API key to use for NCBI e-utils. Using this increases the "
+              "limit on requests/second and may prevent an IP address "
+              "from being blocked due to too many requests"))
+    input_auto_common_subparser.add_argument('--aws-access-key-id',
+        help=("User Account Access Key for AWS. This is only necessary "
+            "if using S3 for memoization via PREP_MEMOIZE_DIR and AWS CLI "
+            "is not installed and configured."))
+    input_auto_common_subparser.add_argument('--aws-secret-access-key',
+        help=("User Account Secret Access Key for AWS. This is only "
+            "necessary if using S3 for memoization via PREP_MEMOIZE_DIR "
+            "and AWS CLI is not installed and configured."))
+
+    # Auto prepare from file
+    input_autofile_subparser = argparse.ArgumentParser(add_help=False)
+    input_autofile_subparser.add_argument('in_tsv',
+        help=("Path to input TSV. Each row gives the following columns, "
+              "in order: (1) label for the row (used for naming output "
+              "files; must be unique); (2) taxonomic (e.g., species) ID from "
+              "NCBI; (3) label of segment (e.g., 'S') if there is one, or "
+              "'None' if unsegmented; (4) accessions of reference sequences to "
+              "use for curation (comma-separated)"))
+    input_autofile_subparser.add_argument('out_tsv_dir',
+        help=("Path to directory in which to place output TSVs; each "
+              "output TSV corresponds to a cluster for the taxon in a row "
+              "in the input"))
+    input_autofile_subparser.add_argument('--write-input-seqs',
+        action='store_true',
+        help=("If set, write the sequences (accession.version) being used as "
+              "input for design to a file in OUT_TSV_DIR; the filename is "
+              "determined based on the label for each taxonomy"))
+    input_autofile_subparser.add_argument('--write-input-aln',
+        action='store_true',
+        help=("If set, write the alignments being used as "
+              "input for design to a file in OUT_TSV_DIR; the filename is "
+              "determined based on the label for each taxonomy (they are "
+              "'[label].[cluster-number].fasta')"))
+    input_autofile_subparser.add_argument('--write-annotation',
+        action='store_true',
+        help=("If set, write genomic annotations for the alignments "
+              "based on the (first) reference sequence to a TSV file in "
+              "OUT_TSV_DIR; the filename is determined based on the label for "
+              "each taxonomy (they are "
+              "'[label].[cluster-number].annotation.tsv')"))
+    input_autofile_subparser.add_argument('--write-weights',
+        action='store_true',
+        help=("If set, write the weights being used to a TSV file. Only used "
+              "if --weight-by-log-size-of-subtaxa is set. The filename is "
+              "determined based on the label for each taxonomy (they are"
+              "'[label].[cluster-number].weights.tsv')"))
+
+    # Auto prepare from arguments
+    input_autoargs_subparser = argparse.ArgumentParser(add_help=False)
+    input_autoargs_subparser.add_argument('tax_id', type=int,
+        help=("Taxonomic (e.g., species) ID from NCBI"))
+    input_autoargs_subparser.add_argument('segment',
+        help=("Label of segment (e.g., 'S') if there is one, or 'None' if "
+              "unsegmented"))
+    input_autoargs_subparser.add_argument('out_tsv',
+        help=("Path to output TSVs, without the file extension, with one per "
+              "cluster; output TSVs are OUT_TSV.[cluster-number].tsv"))
+    input_autoargs_subparser.add_argument('--ref-accs', nargs='+',
+        help=("Accession(s) of reference sequence(s) to use for curation (space-"
+              "separated). If not set, ADAPT will automatically get accessions "
+              "for reference sequences from NCBI based on the taxonomic ID"))
+    input_autoargs_subparser.add_argument('--metadata-filter', nargs='+',
+        help=("Only include accessions of specified taxonomic ID that match this metadata "
+            "in the design. Metadata options are year, taxid, and country. Format as "
+            "'metadata=value' or 'metadata!=value'. Separate multiple values with commas "
+            "and different metadata filters with spaces (e.g. '--metadata-filter "
+            "year!=2020,2019 taxid=11060')"))
+    input_autoargs_subparser.add_argument('--specific-against-metadata-filter', nargs='+',
+        help=("Only include accessions of the specified taxonomic ID that do not match this "
+            "metadata in the design, and be specific against any accession that does match "
+            "this metadata. Metadata options are year, taxid, and country. Format as "
+            "'metadata=value' or 'metadata!=value'. Separate multiple values with commas "
+            "and different metadata filters with spaces (e.g. "
+            "'--specific-against-metadata-filter year!=2020,2019 taxid=11060')"))
+    input_autoargs_subparser.add_argument('--write-input-seqs',
+        help=("Prefix of path to a file to which to write the sequences "
+              "(accession.version) being used as input for design; filename "
+              "is WRITE_INPUT_SEQS.txt"))
+    input_autoargs_subparser.add_argument('--write-input-aln',
+        help=("Prefix of path to files to which to write the alignments "
+              "being used as input for design; filenames are "
+              "'WRITE_INPUT_ALN.[cluster-number].fasta'"))
+    input_autoargs_subparser.add_argument('--write-annotation',
+        help=("Prefix of path to files to which to write genomic annotations "
+              "for the alignments based on the first reference sequence in the "
+              "cluster; the filenames are "
+              "'WRITE_ANNOTATION.[cluster-number].annotation.tsv'"))
+    input_autoargs_subparser.add_argument('--write-weights',
+        help=("Prefix of path to files to which to write the weights being "
+              "used. Only used if --weight-by-log-size-of-subtaxa is set. "
+              "Filenames are 'WRITE_WEIGHTS.[cluster-number].weights.tsv'."))
+
+    # Add parsers for subcommands
+    for search_cmd_parser, search_cmd_parser_args in search_cmd_parsers:
+        parents = [base_subparser, search_cmd_parser_args]
+
+        search_cmd_subparser = search_cmd_parser.add_subparsers(
+            dest='input_type')
+        search_cmd_subparser.add_parser('fasta',
+            parents=parents + [input_fasta_subparser],
+            help=("Search from a given alignment input as a FASTA file"))
+        search_cmd_subparser.add_parser('auto-from-file',
+            parents=parents + [input_auto_common_subparser, input_autofile_subparser],
+            help=("Automatically fetch sequences for one or more "
+                  "taxonomies, then curate and align each; use these "
+                  "alignments as input. The information is provided in "
+                  "a TSV file. Differential identification is performed "
+                  "across the taxonomies."))
+        search_cmd_subparser.add_parser('auto-from-args',
+            parents=parents + [input_auto_common_subparser, input_autoargs_subparser],
+            help=("Automatically fetch sequences for one taxonomy, then curate "
+                  "and align them; use this alignment as input. The "
+                  "taxonomy is provided as command-line arguments."))
+    ###########################################################################
