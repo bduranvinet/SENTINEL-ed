@@ -94,6 +94,8 @@ Using the thermodynamic modules of ADAPT requires:
 
 To run ADAPT, you will need **conda** installed on your Windows Linux Subsystem or macOS. Please make sure you install it before installing ADAPT; a short walkthrough is included below.
 
+---
+
 ## Step 0. Installing Windows Linux Subsystem
 
 >[!WARNING]
@@ -104,6 +106,8 @@ If you are a Windows 10 user, please follow this [Win10 tutorial](https://www.ss
 If you are a Windows 11 user, please follow this [Win11 tutorial](https://www.howtogeek.com/744328/how-to-install-the-windows-subsystem-for-linux-on-windows-11/#:~:text=To%20do%20this%2C%20open%20your,prompted%20to%20reboot%20your%20computer)
 
 After you have installed Ubuntu subsystem, open the terminal and go to Step 1.1
+
+---
 
 ## Step 1. Installing miniconda3 into your system
 
@@ -124,6 +128,8 @@ This should provide a number (format xx.x.x). If you got a number as shown below
 
 If you got an error, conda is not installed on your computer, then proceed to step 1.2 (Linux subsystem users) or 1.3 (Mac users).
 
+---
+
 ### <ins>Step 1.2 Installing conda for Linux subsystem<ins>
 
 ```bash
@@ -131,6 +137,8 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
 After this, restart your terminal. You should have a (base) before you prompt.
+
+---
 
 ### <ins>Step 1.3 Installing conda for macOS<ins>
 
@@ -183,6 +191,8 @@ cd ..
 
 'cd..' will take you one directory back. You can check with 'pwd' your new position. You will also see that your prompt changed too.
 
+---
+
 ## Step 3. Creating an environment
 
 >[!NOTE]
@@ -201,6 +211,8 @@ conda create -n SENTINELv1 python=3.8
 
 This will create a specific environment that has Python version 3.8.x. It will also install other dependencies and libraries. Type y and press ENTER. This will take some minutes to run.
 
+---
+
 ### <ins> Step 3.2 Working directories creation<ins>
 
 ```bash
@@ -212,6 +224,8 @@ ls
 <img width="586" alt="image" src="https://github.com/user-attachments/assets/4e9b7d68-0f36-4b55-936c-b08438a90930" />
 
 If you have already created SENTINELv1, use the last three lines instead.
+
+---
 
 ### <ins> Step 3.3 ADAPT installation <ins>
 
@@ -252,6 +266,8 @@ design.py --help
 
 If something similar displays, then ADAPT has been successfully installed. 'design.py' calls for the workflow activation, while '--help' provides specific information to run the workflow. Check out the [Commands Explained](Useful/Commands%20explained.md) guide for more details.
 
+---
+
 # Running ADAPT
 
 >[!TIP] 
@@ -261,7 +277,7 @@ If something similar displays, then ADAPT has been successfully installed. 'desi
 >
 >You can use [Sublime Text](https://www.sublimetext.com/) for quick command changes and [Benchling](https://www.benchling.com/) to keep a trackable record of what you have ran through the terminal.
 >
->ADAPT can only read FASTA files. ADAPT will always assume they are aligned unless otherwise specified. It is recommended that aligned files be provided if possible.
+>ADAPT can only read .FASTA files. ADAPT will always assume that input files are aligned unless otherwise specified. It is recommended that files are aligned and examined carefully before running them through ADAPT.
 
 ## Step 4. ADAPT example run
 
@@ -273,17 +289,24 @@ If something similar displays, then ADAPT has been successfully installed. 'desi
 In this same repository, go to the Example folder and download Test.fasta
 
 <img width="914" alt="image" src="https://github.com/user-attachments/assets/23e32b13-ee0c-4ad1-97d6-45b8589501fc" />
+<img width="1108" alt="image" src="https://github.com/user-attachments/assets/5e78f315-6433-4a66-b6b0-d3dbcfe521f6" />
 
-Move Test.fasta into your 'Input' directory previously created. You can do this manually in Windows or Mac.
+
+Move Test.fasta into your 'Input' directory that was previously created. You can do this manually in Windows or Mac.
+
+---
 
 ### <ins> Step 4.2 Running pipeline <ins>
 
-Then, copy the following commands and paste them into your terminal.
+Then, please copy the following commands and paste them into your terminal.
 
 >[!WARNING]
->Make sure you change your output file name or it will get OVERWRITTEN.
+>Make sure you change your output file name before running a new ADAPT query, or it will get OVERWRITTEN, and previous results will be PERMANENTLY LOST.
 >
->Long sequences may require special commands to ensure a smooth run or eventually a server.
+>Long sequences may require special commands to ensure a smooth run or eventually a server. See [Commands Explained](Useful/Commands%20explained.md) for more information.
+>
+> Ensure you are in the SENTINELv1 folder before running the command below, or an error will occur.
+
 
 ```bash
 design.py complete-targets fasta ./input/Test.fasta -o ./output/example-output1 --obj maximize-activity --id-m 4 --id-frac 0.01 -gl 28 -gm 0 -pl 30 -pm 5 -pp 0.98 --primer-gc-content-bounds 0.35 0.70 --maximization-algorithm random-greedy --predict-cas13a-activity-model --best-n-targets 10 --seed 001 --verbose
@@ -293,6 +316,8 @@ design.py complete-targets fasta ./input/Test.fasta -o ./output/example-output1 
 This is how it will look when running
 
 <img width="573" alt="image" src="https://github.com/user-attachments/assets/01c4c7da-3276-42f1-90c0-cb7fb47afa9c" />
+
+---
 
 ### <ins> Step 4.3 Output retrieval <ins>
 
@@ -305,6 +330,24 @@ ls
 
 <img width="593" alt="image" src="https://github.com/user-attachments/assets/5ef8ee08-e510-4d72-ad12-29f3a6ad7124" />
 
+---
+
+>[!TIP]
+>For MacOS users:
+
+```bash
+open .
+```
+<img width="1256" alt="image" src="https://github.com/user-attachments/assets/2eb300d6-cd56-47a0-941a-0349f8b8a17c" />
+
+---
+
+>[!TIP]
+>For Windows Linux Subsystem users:
+
+```bash
+explore.exe .
+```
 
 Results will look similar to those shown below
 
