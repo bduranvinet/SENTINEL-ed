@@ -364,3 +364,23 @@ An explanation of the most important values is given in the next section.
 
 # Understanding ADAPT output
 
+objective-value,
+target-length
+right/left-primer-frac-bound
+total-frac-bound-by-guides
+guide-set-5th-pctile-activity
+guide-expected-activities
+guide-target-sequences
+guide-target-sequence-positions
+
+
+
+
+
+
+
+
+
+
+
+
