@@ -1,6 +1,11 @@
 >[!CAUTION]
 >Some commands to work require '--' and others require '-'
 
+See below example of error for missing a '-'
+
+<img width="584" alt="image" src="https://github.com/user-attachments/assets/480a80c9-1292-411c-a831-19bcad1c645d" />
+
+
 ## design.py
 Calls ADAPT. It needs a [SEARCH-TYPE] right after. [SEARCH-TYPE] can be either be complete-targets or sliding-window.
 
