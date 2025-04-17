@@ -21,7 +21,10 @@
     - [Step 3.2 Working directories creation](#step-32-working-directories-creation)
     - [Step 3.3 ADAPT installation](#step-33-adapt-installation)
 - [Running ADAPT](#running-adapt)
-    
+  - [Step 4. ADAPT example run](#step-4-adapt-example-run)
+    - [Step 4.1 Preparing example file](#step-41-preparing-example-file)
+    - [Step 4.2 Running pipeline](#step-42-running-pipeline)
+    - [Step 4.3 Output retrieval](#step-43-output-retrieval)
  
 ## SENTINEL introduction
 
@@ -338,7 +341,7 @@ ls
 ```bash
 open .
 ```
-<img width="1256" alt="image" src="https://github.com/user-attachments/assets/2eb300d6-cd56-47a0-941a-0349f8b8a17c" />
+<img width="1360" alt="image" src="https://github.com/user-attachments/assets/52bbf924-0b26-41ce-81a2-f6fe1b5ee2bb" />
 
 ---
 
@@ -349,13 +352,15 @@ open .
 explore.exe .
 ```
 
+---
+
 Results will look similar to those shown below
 
 
 <img width="938" alt="image" src="https://github.com/user-attachments/assets/a1210f26-9913-42ac-83ec-beb863473ed0" />
 
 
-Explanation of the most important values are given xxxxx
+An explanation of the most important values is given in the next section.
 
 # Understanding ADAPT output
 
