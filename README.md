@@ -25,6 +25,8 @@
     - [Step 4.1 Preparing example file](#step-41-preparing-example-file)
     - [Step 4.2 Running pipeline](#step-42-running-pipeline)
     - [Step 4.3 Output retrieval](#step-43-output-retrieval)
+- [Understanding ADAPT output](#understanding-adapt-output)
+- [Making ADAPT output functional](#making-adapt-output-functional)
  
 ## SENTINEL introduction
 
@@ -362,24 +364,67 @@ Results will look similar to those shown below
 
 An explanation of the most important values is given in the next section.
 
+---
+
 # Understanding ADAPT output
 
 objective-value,
-target-length
-right/left-primer-frac-bound
-total-frac-bound-by-guides
-guide-set-5th-pctile-activity
-guide-expected-activities
-guide-target-sequences
-guide-target-sequence-positions
 
+target-length,
 
+right/left-primer-frac-bound,
 
+total-frac-bound-by-guides,
 
+guide-set-5th-pctile-activity,
 
+guide-expected-activities,
 
+guide-target-sequences,
 
+guide-target-sequence-positions,
 
+---
+
+# Making ADAPT output functional
+
+>[!NOTE]
+>To accelerate and enhance the visualisation of results, we recommend the use of Geneious Prime for the following steps.
+
+>[!TIP]
+>Remember that ADAPT generates specific spacers for LwaCas13a. However, the pipeline can also make PCR and RPA primers.
+
+>[!WARNING]
+>ADAPT designs are not ready to use straightaway.
+>Spacer and reverse primers (left-primers) have to be reverse-complemented.
+>Forward primers have to be appended with the T7 promoter.
+>Spacers must be converted to RNA and appended with a DR sequence to be functional.
+
+---
+
+See below LwaCas13a DR sequence,
+
+>LwaCas13a DR sequence:
+GAUUUAGACUACCCCAAAAACGAAGGGGACUAAAAC
+
+This sequence has to be appended to the 5' end of the spacer sequence obtained.
+
+---
+See below the T7 promoter,
+
+>T7 promoter sequence:
+GAAATTAATACGACTCACTATAGGG
+
+This sequence has to be appended to the 5' end of the forward primer sequence.
+
+---
+
+See below the polyU5 sequence,
+
+>polyU5 sequence:
+/6-FAM/rUrUrUrUrU/BHQ-1/
+
+---
 
 
 
