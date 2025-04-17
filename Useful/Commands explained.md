@@ -1,3 +1,5 @@
+>[!CAUTION]
+>Some commands to work require '--' and others require '-'
 
 ## design.py
 Calls ADAPT. It needs a [SEARCH-TYPE] right after. [SEARCH-TYPE] can be either be complete-targets or sliding-window.
@@ -57,8 +59,8 @@ This is to activate the trained model of ADAPT. This will call the internal mode
 ## --best-n-targets
 This sets a hard total number, e.g., if =5, no more than 5 designs are going to be retrieved even if more are found. If ADAPT finds more, it will replace them by ranking.
 
-## –seed: 
+## --seed: 
 This is important for reproducibility, so it is recommended to be changed for every iteration.
 
-## –verbose
+## --verbose
 Allows you to see every step (you also look like you are working hard, even if it is automatic after you run ADAPT).
