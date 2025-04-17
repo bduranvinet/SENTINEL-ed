@@ -9,12 +9,18 @@
 * [SENTINEL introduction](#sentinel-introduction)
 * [Quick glossary](#quick-glossary)
 * [Installing ADAPT](#installing-adapt-v160)
-  * [Dependencies](#dependencies)
-  * [Installing Windows Linux Subsystem](#step-0-installing-windows-linux-subsystem)
-  * [Installing conda for Linux subsystem](#installing-conda-for-linux-subsystem)
-  * [Installing conda for macOS](#installing-conda-for-macos)
-
- <br/>
+  - [Dependencies](#dependencies)
+  - [Step 0. Installing Windows Linux Subsystem](#step-0-installing-windows-linux-subsystem)
+  - [Step 1. Installing miniconda3 into your system](#step-1-installing-miniconda3-into-your-system)
+    - [Step 1.1 Status check](#step-11-status-check)
+    - [Step 1.2 Installing conda for Linux subsystem](#step-12-installing-conda-for-linux-subsystem)
+    - [Step 1.3 Installing conda for macOS](#step-13-installing-conda-for-macos)
+  - [Step 2. Quick basic terminal commands training](#step-2-quick-basic-terminal-commands-training)
+  - [Step 3. Creating an environment](#step-3-creating-an-environment)
+    - [Step 3.1 Specific environment creation](#step-31-specific-environment-creation)
+    - [Step 3.2 Working directories creation](#step-32-working-directories-creation)
+    - [Step 3.3 ADAPT installation](#step-33-adapt-installation)
+    
  
 ## SENTINEL introduction
 
