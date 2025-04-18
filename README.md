@@ -30,7 +30,7 @@
  
 ## SENTINEL introduction
 
-In particular, SENTINEL is an integrated tool for CRISPR-based environmental biosurveillance (CRISPR-eBx). SENTINEL currently leverages ADAPT (Activity-informed Design with All-inclusive Patrolling of Targets) [article here](https://www.nature.com/articles/s41587-022-01213-5). ADAPT is an end-to-end trained artificial intelligence with ~19,000 guide-target pairs, ultimately providing a robust and comprehensive platform for target discovery in the environmental nucleic acid field that can accelerate environmental biosurveillance of emergent biosecurity threats or aid endangered species detection. ADAPT designs are trained to be highly sensitive and specific, with well-established command options that enable high customization for a flexible assay design for the user. ADAPT designs are also scalable and can be locally deployed.
+In particular, SENTINEL is an integrated tool for CRISPR-based environmental biosurveillance (CRISPR-eBx). SENTINEL currently leverages [ADAPT](https://www.nature.com/articles/s41587-022-01213-5) (Activity-informed Design with All-inclusive Patrolling of Targets) [article here]. ADAPT is an end-to-end trained artificial intelligence with ~19,000 guide-target pairs, ultimately providing a robust and comprehensive platform for target discovery in the environmental nucleic acid field that can accelerate environmental biosurveillance of emergent biosecurity threats or aid endangered species detection. ADAPT designs are trained to be highly sensitive and specific, with well-established command options that enable high customization for a flexible assay design for the user. ADAPT designs are also scalable and can be locally deployed.
 
 This ADAPT platform will provide suitable ranked guide-target pairs for the given target (set of primers and a spacer sequence).
 
@@ -50,6 +50,8 @@ Most CRISPR-eBx deployments use an isothermal amplification method: RPA (recombi
 **CRISPR-eBx**, CRISPR-based environmental biosurveillance, an alternative use of CRISPR to detect target species presence from environmental samples, targeting environmental nucleic acids. This could be for various applications, including environmental viral vectors, elusive endangered species, invasive species, diseases, genetic modifications and more.
 
 **CRISPR-Dx**, CRISPR-based diagnostics, CRISPR-Dx is the original use of CRISPR-based detection tools. However, these clinical deployments are not considered the same as an environmental deployment, i.e., CRISPR-eBx.
+
+**DR**, Direct repeat, section of the gRNA specific for each Cas nuclease.
 
 **eNAs**, Environmental nucleic acids, often refer to all the DNA or RNA shredded or left behind in the environment by organisms or agents. eNAs include environmental DNA (eDNA) and environmental RNA (eRNA).
 
@@ -402,6 +404,9 @@ guide-target-sequence-positions,
 
 ---
 
+>[!TIP]
+>Save these sequences in Geneious Prime as separate sequences.
+
 See below LwaCas13a DR sequence,
 
 >LwaCas13a DR sequence:
@@ -424,7 +429,11 @@ See below the polyU5 sequence,
 >polyU5 sequence:
 /6-FAM/rUrUrUrUrU/BHQ-1/
 
+This is the specific reporter for LwaCas13a, this nuclease has a high  semi-specific di-nucleotide motif preference for U-U pairs.
+
 ---
+
+
 
 
 
