@@ -3,6 +3,10 @@
 > [!NOTE]
 > This is an educational repository for installing ADAPT dependencies for environmental deployments. Many things in this repository have been adapted from the [Original ADAPT repository](https://github.com/broadinstitute/adapt/blob/main/).
 
+>[!NOTE]
+> Our SENTINEL article has been accepted at the [Environmental DNA journal](https://onlinelibrary.wiley.com/journal/26374943), where all this pipeline and similar procedure was done.
+>
+> [Durán-Vinet et al. (in press)]
 
 ## Table of contents
 
@@ -364,34 +368,15 @@ Results will look similar to those shown below
 <img width="938" alt="image" src="https://github.com/user-attachments/assets/a1210f26-9913-42ac-83ec-beb863473ed0" />
 
 
-An explanation of the most important values is given in the next section.
+An explanation of the most important values are given at [Understanding Output](Useful/Output-understanding.md)
 
----
-
-# Understanding ADAPT output
-
-objective-value,
-
-target-length,
-
-right/left-primer-frac-bound,
-
-total-frac-bound-by-guides,
-
-guide-set-5th-pctile-activity,
-
-guide-expected-activities,
-
-guide-target-sequences,
-
-guide-target-sequence-positions,
 
 ---
 
 # Making ADAPT output functional
 
 >[!NOTE]
->To accelerate and enhance the visualisation of results, we recommend the use of Geneious Prime for the following steps.
+>To accelerate and enhance the visualisation of results, we recommend using Geneious Prime for the following steps.
 
 >[!TIP]
 >Remember that ADAPT generates specific spacers for LwaCas13a. However, the pipeline can also make PCR and RPA primers.
@@ -401,6 +386,8 @@ guide-target-sequence-positions,
 >Spacer and reverse primers (left-primers) have to be reverse-complemented.
 >Forward primers have to be appended with the T7 promoter.
 >Spacers must be converted to RNA and appended with a DR sequence to be functional.
+
+<img width="898" alt="image" src="https://github.com/user-attachments/assets/cc6c9aea-4734-40da-b6d9-101959fc876b" />
 
 ---
 
@@ -424,16 +411,64 @@ This sequence has to be appended to the 5' end of the forward primer sequence.
 
 ---
 
-See below the polyU5 sequence,
+See below the poly-U5 sequence,
 
 >polyU5 sequence:
 /6-FAM/rUrUrUrUrU/BHQ-1/
 
-This is the specific reporter for LwaCas13a, this nuclease has a high  semi-specific di-nucleotide motif preference for U-U pairs.
+This is the specific reporter for LwaCas13a. This nuclease has a high  semi-specific di-nucleotide motif preference for U-U pairs.
 
 ---
 
+## Step 5. Functional guide-target pairs <ins>
 
+>[!Note]
+>For the following example, we will use the best guide-target pair obtained in the previous example. Copy and paste the sequences into Geneious Prime, and also drag and drop the test.fasta file in the same folder.
+
+<img width="904" alt="image" src="https://github.com/user-attachments/assets/5171f735-4047-4ae1-8524-e31bddd06090" />
+
+>[!WARNING]
+>As this is a deep learning model, you might have got a different result; proceed with the best predicted target.
+
+### <ins> Step 5.1 Off-target check <ins>
+
+Because SENTINEL uses the crRNAs as the main source of specificity while RPA is enrichment only, it is only required to BLAST the spacer sequence. It is optional to also BLAST the primers, but they will have off-targets. Moreover, RPA is highly tolerant of mismatches.
+
+<img width="1038" alt="image" src="https://github.com/user-attachments/assets/78fc3f12-d615-47e2-9088-b9113e1682a5" />
+
+When BLASTing in Geneious, it will create a new folder with full-hit targets, which are guaranteed to have off-target activity.
+
+<img width="1093" alt="image" src="https://github.com/user-attachments/assets/3ebc8e28-102c-46ba-8a3b-b2dc1ec12098" />
+
+As expected, the crRNA has lots of full-hit off-targets sequences. This is completely expected as no '--specific-against-fastas' command was used. We will continue with this one as a demonstration.
+
+---
+
+### <ins> Step 5.2 Guide-target pair preparation <ins>
+
+We will convert all guide-target pair sequences into primers.
+
+<img width="898" alt="image" src="https://github.com/user-attachments/assets/78935e4c-d382-42ec-a953-47b00dff0c97" />
+
+Then, we will reverse complement the Rv and crRNA using the 'reverse complement' option from the Sequence bar.
+
+<img width="758" alt="image" src="https://github.com/user-attachments/assets/2060e1ed-4217-40f1-a1b7-2b3008a78a06" />
+
+The sequences will change name automatically with a (reversed).
+
+Click on crRNA544, go to the Sequence bar and convert into RNA.
+
+<img width="693" alt="image" src="https://github.com/user-attachments/assets/a7121719-73f3-4a4c-b9b7-b1db09bb726d" />
+
+Now, copy the LwaCas13a DR sequence, go to the crRNA544 sequence, click on 'Allow editing', click on the 5' end and paste the sequence. Repeat the same with the T7 promoter for the Fw primer.
+
+<img width="802" alt="image" src="https://github.com/user-attachments/assets/cc41bd35-9949-4134-af76-b5863d22cfe5" />
+
+<img width="814" alt="image" src="https://github.com/user-attachments/assets/79ac2f77-9bbb-483a-a2f2-e01253d2311e" />
+
+<img width="806" alt="image" src="https://github.com/user-attachments/assets/b03969b0-4924-480c-9707-775210be126a" />
+
+### <ins> Step 5.2 Guide-target pair preparation <ins>
 
 
 
