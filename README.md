@@ -468,8 +468,21 @@ Now, copy the LwaCas13a DR sequence, go to the crRNA544 sequence, click on 'Allo
 
 <img width="806" alt="image" src="https://github.com/user-attachments/assets/b03969b0-4924-480c-9707-775210be126a" />
 
-### <ins> Step 5.2 Guide-target pair preparation <ins>
+---
 
+### <ins> Step 5.3 Guide-targer pair screening <ins>
 
+As the final stage for all guide-target pairs, a screening has to be done. Select test.fasta, go to the primer symbol and select 'Test Saved Primers'
 
+<img width="346" alt="image" src="https://github.com/user-attachments/assets/ddf701dc-3014-41b2-977f-46784cb647f5" />
+
+Choose the guide-target pair and use the following configuration for your screening, then select OK.
+
+<img width="550" alt="image" src="https://github.com/user-attachments/assets/71d3f567-8ec7-48ae-a218-dbc515820009" />
+
+Now, the obtained guide-target pair is successfully screened.
+
+<img width="526" alt="image" src="https://github.com/user-attachments/assets/47e83ff9-f07d-4b9b-be2d-3ebab1a54bde" />
+
+Congratz! You've made it!!!
 
