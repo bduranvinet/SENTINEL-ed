@@ -14,5 +14,5 @@ Currently contributing or have contributed to SENTINEL-ed:
 
 ### Past contributors
 
-
+*  MSc [Anya Kardailsky](https://www.linkedin.com/in/anya-kardailsky/)
 
