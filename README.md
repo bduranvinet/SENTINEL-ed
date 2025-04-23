@@ -92,6 +92,11 @@ Some noteworthy reviews and perspectives on the CRISPR-based detection field are
 * **CRISPR-base depletion** [Kardailsky et al., 2025 - Monitoring the Land and Sea: Enhancing Efficiency Through CRISPR-Cas Driven Depletion and Enrichment of Environmental DNA in _CRISPR J._](https://doi.org/10.1089/crispr.2024.0050)
 
 ---
+# Before starting
+
+This repository is educational and is not intended to cover all of bioinformatics. Instead, it is intended to teach you to use a specific tool within many other applications that Conda could run. If you ran into any potential issues when exploring ADAPT deeper, feel free to contact the original ADAPT authors or me at benjamin.duran-vinet@postgrad.otago.ac.nz
+
+---
 
 # Installing ADAPT v1.6.0
 
@@ -99,6 +104,8 @@ Some noteworthy reviews and perspectives on the CRISPR-based detection field are
 
 >[!IMPORTANT]
 >The dependencies listed below are automatically installed via Bioconda, and they differ from the original ADAPT. These changes has been tested and do not change the results quality, but allow better compatibility across systems. If you desire to install the original package, it has to be installed via pip or by downloading the repository, but this is ONLY for advanced/dev users.
+>
+>Moreover, the original version of ADAPT can only be installed in Linux or Windows due to major incompatibilities with the arm64 architecture with Protobuf.
 
 ADAPT will install:
 * [Python](https://www.python.org) == 3.8.18
@@ -160,13 +167,31 @@ After this, restart your terminal. You should have a (base) before you prompt.
 ### <ins>Step 1.3 Installing conda for macOS</ins>
 
 >[!CAUTION]
->Please make sure you install the correct conda version for Mac, as there are different MacOS architectures (amd64 and arm64); installing the incorrect one will bring downstream compiling errors.
+>Please ensure you install the correct conda version for Mac, as there are different MacOS architectures (amd64 and arm64); installing the incorrect one will bring downstream compiling errors.
 
+For arm64 architecture for Apple Silicon (i.e., from M1 and onwards):
+```bash
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-amd64.sh
+```
+
+For amd64 architecture:
 ```bash
 curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
+```
+These commands will download the latest conda version for the correct architecture, Please double-check your architecture before proceeding.
+
+Then run:
+```
 bash Miniconda3-latest-MacOSX-*.sh
 ```
-After this, restart your terminal. You should have a (base) before you prompt as shown below:
+
+This will lead you to accept all T&C, press the ENTER key till a yes|no prompt appears.
+
+![image](https://github.com/user-attachments/assets/b3559e4a-2b91-43f9-9c9f-f3cc6e00a05d)
+
+Type 'yes' and press ENTER. This will install miniconda.
+
+After this, restart your terminal. You should have a (base) before your prompt as shown below:
 <img width="574" alt="image" src="https://github.com/user-attachments/assets/57a8cde6-1359-4bfd-a692-ef99d06d238e" />
 
 ---
@@ -240,7 +265,7 @@ ls
 ```
 <img width="586" alt="image" src="https://github.com/user-attachments/assets/4e9b7d68-0f36-4b55-936c-b08438a90930" />
 
-If you have already created SENTINELv1, use the last three lines instead.
+If you have already created a 'SENTINELv1' folder, use the last three lines instead.
 
 ---
 
@@ -308,8 +333,25 @@ In this same repository, go to the Example folder and download Test.fasta
 <img width="914" alt="image" src="https://github.com/user-attachments/assets/23e32b13-ee0c-4ad1-97d6-45b8589501fc" />
 <img width="1108" alt="image" src="https://github.com/user-attachments/assets/5e78f315-6433-4a66-b6b0-d3dbcfe521f6" />
 
-
 Move Test.fasta into your 'Input' directory that was previously created. You can do this manually in Windows or Mac.
+
+To do this, go to your input folder
+
+```bash
+cd SENTINELv1/input/
+```
+If you are a Windows user use:
+
+```bash
+explore.exe .
+```
+
+If you are a Mac user use:
+```bash
+open .
+```
+This will open your current location folder, where you can drag and drop the test.FASTA file and then run 'ls' to see it also in the terminal.
+![image](https://github.com/user-attachments/assets/8016fefd-1dbe-471a-a01d-1b503701ba49)
 
 ---
 
