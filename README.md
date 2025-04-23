@@ -212,7 +212,7 @@ cd ..
 >[!TIP]
 >Environments are useful tools in bioinformatics as they allow us to have a unique 'bench' for specific work; this way, we avoid creating incompatibilities in our main system files.
 
-### <ins> Step 3.1 Specific environment creation</ins>
+### <ins>Step 3.1 Specific environment creation</ins>
 
 ```bash
 conda create -n SENTINELv1 python=3.8
@@ -224,7 +224,7 @@ This will create a specific environment that has Python version 3.8.x. It will a
 
 ---
 
-### <ins> Step 3.2 Working directories creation<ins>
+### <ins>Step 3.2 Working directories creation<ins>
 
 ```bash
 mkdir SENTINELv1
@@ -238,7 +238,7 @@ If you have already created SENTINELv1, use the last three lines instead.
 
 ---
 
-### <ins> Step 3.3 ADAPT installation <ins>
+### <ins>Step 3.3 ADAPT installation <ins>
 
 >[!WARNING]
 > Ensure you activate the environment you created in step 3.1 before continuing.
@@ -295,7 +295,7 @@ If something similar displays, then ADAPT has been successfully installed. 'desi
 >[!NOTE]
 >You can optionally use your own FASTA file. In fact, it is encouraged so you can get a useful product from this workshop. You can follow the same instructions provided below, just make sure to use the correct file name.
 
-### <ins> Step 4.1 Preparing example file <ins>
+### <ins>Step 4.1 Preparing example file <ins>
 
 In this same repository, go to the Example folder and download Test.fasta
 
@@ -307,7 +307,7 @@ Move Test.fasta into your 'Input' directory that was previously created. You can
 
 ---
 
-### <ins> Step 4.2 Running pipeline <ins>
+### <ins>Step 4.2 Running pipeline <ins>
 
 Then, please copy the following commands and paste them into your terminal.
 
@@ -330,7 +330,7 @@ This is how it will look when running
 
 ---
 
-### <ins> Step 4.3 Output retrieval <ins>
+### <ins>Step 4.3 Output retrieval <ins>
 
 You can see your output file as follows
 
