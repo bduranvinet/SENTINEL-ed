@@ -32,8 +32,11 @@
     - [Step 4.1 Preparing example file](#step-41-preparing-example-file)
     - [Step 4.2 Running pipeline](#step-42-running-pipeline)
     - [Step 4.3 Output retrieval](#step-43-output-retrieval)
-- [Understanding ADAPT output](#understanding-adapt-output)
 - [Making ADAPT output functional](#making-adapt-output-functional)
+  - [Step 5. Functional guide-target pairs](#step-5-functional-guide-target-pairs)
+    - [Step 5.1: Off-target check](#step-51-off-target-check)
+    - [Step 5.2: Guide-target pair preparation](#step-52-guide-target-pair-preparation)
+    - [Step 5.3: Guide-target pair screening](#step-53-guide-target-pair-screening)
  
 ## SENTINEL introduction
 
@@ -241,7 +244,7 @@ If you have already created SENTINELv1, use the last three lines instead.
 
 ---
 
-### <ins>Step 3.3 ADAPT installation <ins>
+### <ins>Step 3.3 ADAPT installation</ins>
 
 >[!WARNING]
 > Ensure you activate the environment you created in step 3.1 before continuing.
@@ -298,7 +301,7 @@ If something similar displays, then ADAPT has been successfully installed. 'desi
 >[!NOTE]
 >You can optionally use your own FASTA file. In fact, it is encouraged so you can get a useful product from this workshop. You can follow the same instructions provided below, just make sure to use the correct file name.
 
-### <ins>Step 4.1 Preparing example file <ins>
+### <ins>Step 4.1 Preparing example file</ins>
 
 In this same repository, go to the Example folder and download Test.fasta
 
@@ -310,7 +313,7 @@ Move Test.fasta into your 'Input' directory that was previously created. You can
 
 ---
 
-### <ins>Step 4.2 Running pipeline <ins>
+### <ins>Step 4.2 Running pipeline</ins>
 
 Then, please copy the following commands and paste them into your terminal.
 
@@ -333,7 +336,7 @@ This is how it will look when running
 
 ---
 
-### <ins>Step 4.3 Output retrieval <ins>
+### <ins>Step 4.3 Output retrieval</ins>
 
 You can see your output file as follows
 
@@ -423,17 +426,17 @@ This is the specific reporter for LwaCas13a. This nuclease has a high  semi-spec
 
 ---
 
-## Step 5. Functional guide-target pairs <ins>
+## Step 5. Functional guide-target pairs
 
 >[!Note]
->For the following example, we will use the best guide-target pair obtained in the previous example. Copy and paste the sequences into Geneious Prime, and also drag and drop the test.fasta file in the same folder.
+>For the following example, we will use the best guide-target pair from the previous example. Copy and paste the sequences into Geneious Prime, and also drag and drop the test.fasta file in the same folder.
 
 <img width="904" alt="image" src="https://github.com/user-attachments/assets/5171f735-4047-4ae1-8524-e31bddd06090" />
 
 >[!WARNING]
 >As this is a deep learning model, you might have got a different result; proceed with the best predicted target.
 
-### <ins> Step 5.1 Off-target check <ins>
+### <ins>Step 5.1 Off-target check</ins>
 
 Because SENTINEL uses the crRNAs as the main source of specificity while RPA is enrichment only, it is only required to BLAST the spacer sequence. It is optional also to BLAST the primers, but they will have off-targets. Moreover, RPA is highly tolerant of mismatches.
 
@@ -447,7 +450,7 @@ As expected, the crRNA has lots of full-hit off-target sequences. This is comple
 
 ---
 
-### <ins> Step 5.2 Guide-target pair preparation <ins>
+### <ins>Step 5.2 Guide-target pair preparation</ins>
 
 We will convert all guide-target pair sequences into primers.
 
@@ -473,7 +476,7 @@ Now, copy the LwaCas13a DR sequence, go to the crRNA544 sequence, click on 'Allo
 
 ---
 
-### <ins> Step 5.3 Guide-targer pair screening <ins>
+### <ins>Step 5.3 Guide-target pair screening</ins>
 
 As the final stage for all guide-target pairs, a screening has to be done. Select test.fasta, go to the primer symbol and select 'Test Saved Primers'
 
