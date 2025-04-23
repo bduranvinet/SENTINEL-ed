@@ -151,7 +151,7 @@ After this, restart your terminal. You should have a (base) before you prompt.
 
 ---
 
-### <ins>Step 1.3 Installing conda for macOS<ins>
+### <ins>Step 1.3 Installing conda for macOS</ins>
 
 >[!CAUTION]
 >Please make sure you install the correct conda version for Mac, as there are different MacOS architectures (amd64 and arm64); installing the incorrect one will bring downstream compiling errors.
@@ -212,7 +212,7 @@ cd ..
 >[!TIP]
 >Environments are useful tools in bioinformatics as they allow us to have a unique 'bench' for specific work; this way, we avoid creating incompatibilities in our main system files.
 
-### <ins> Step 3.1 Specific environment creation<ins>
+### <ins> Step 3.1 Specific environment creation</ins>
 
 ```bash
 conda create -n SENTINELv1 python=3.8
