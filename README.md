@@ -1,7 +1,10 @@
+<img src="https://github.com/user-attachments/assets/67e6ce83-6c6b-4293-beb4-7acf3f407d14" alt="SENTINEL(ed) logo" style="width:100%;" />
+
+
 # SENTINEL - Smart Environmental Nucleic-acid Tracking using Inference from Neural-networks for Early-warning Localization
 
-> [!NOTE]
-> This is an educational repository for installing ADAPT dependencies for environmental deployments. Many things in this repository have been adapted from the [Original ADAPT repository](https://github.com/broadinstitute/adapt/blob/main/).
+> [!IMPORTANT]
+> This is an educational repository for installing ADAPT dependencies for CRISPR-based environmental biosurveillance deployments (SENTINEL education or SENTINEL-ed). Many things in this repository have been adapted from the [Original ADAPT repository](https://github.com/broadinstitute/adapt/blob/main/) to enhance accessibility.
 
 >[!NOTE]
 > Our SENTINEL article has been accepted at the [Environmental DNA journal](https://onlinelibrary.wiley.com/journal/26374943), where all this pipeline and similar procedure was done.
@@ -432,15 +435,15 @@ This is the specific reporter for LwaCas13a. This nuclease has a high  semi-spec
 
 ### <ins> Step 5.1 Off-target check <ins>
 
-Because SENTINEL uses the crRNAs as the main source of specificity while RPA is enrichment only, it is only required to BLAST the spacer sequence. It is optional to also BLAST the primers, but they will have off-targets. Moreover, RPA is highly tolerant of mismatches.
+Because SENTINEL uses the crRNAs as the main source of specificity while RPA is enrichment only, it is only required to BLAST the spacer sequence. It is optional also to BLAST the primers, but they will have off-targets. Moreover, RPA is highly tolerant of mismatches.
 
 <img width="1038" alt="image" src="https://github.com/user-attachments/assets/78fc3f12-d615-47e2-9088-b9113e1682a5" />
 
-When BLASTing in Geneious, it will create a new folder with full-hit targets, which are guaranteed to have off-target activity.
+When BLASTing in Geneious, it will create a new folder with full-hit targets, and all hits shown in the list are guaranteed full activity.
 
 <img width="1093" alt="image" src="https://github.com/user-attachments/assets/3ebc8e28-102c-46ba-8a3b-b2dc1ec12098" />
 
-As expected, the crRNA has lots of full-hit off-targets sequences. This is completely expected as no '--specific-against-fastas' command was used. We will continue with this one as a demonstration.
+As expected, the crRNA has lots of full-hit off-target sequences. This is completely expected as no '--specific-against-fastas' command was used. We will continue with this one as a demonstration. However, if you want ADAPT to provide highly specific guide-target pairs, it is recommended to use '--specific-against-fastas'. You'll need to specify a PATH to the off-target .FASTA file.
 
 ---
 
