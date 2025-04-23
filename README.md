@@ -340,13 +340,14 @@ To do this, go to your input folder
 ```bash
 cd SENTINELv1/input/
 ```
-If you are a Windows user use:
-
+>[!TIP]
+>If you are a Windows user use:
 ```bash
-explore.exe .
+explorer.exe .
 ```
 
-If you are a Mac user use:
+>[!TIP]
+>If you are a Mac user use:
 ```bash
 open .
 ```
@@ -356,6 +357,15 @@ This will open your current location folder, where you can drag and drop the tes
 ---
 
 ### <ins>Step 4.2 Running pipeline</ins>
+
+Before running the pipeline, make sure you are in the 'SENTINELv1' folder, as the command shown below has the path directories to work from 'SENTINELv1'. You can call ADAPT from your home folder, but you would need to add the full path so ADAPT can find the input files and deposit the output file properly.
+
+Use 'pwd' to know your current PATH position. You should be in the 'input' folder. If so, use:
+
+```bash
+cd ..
+```
+![image](https://github.com/user-attachments/assets/6cfff9f3-7ea3-4452-a10f-cece7be9984d)
 
 Then, please copy the following commands and paste them into your terminal.
 
