@@ -6,7 +6,7 @@
 >[!NOTE]
 > Our SENTINEL article has been accepted at the [Environmental DNA journal](https://onlinelibrary.wiley.com/journal/26374943), where all this pipeline and similar procedure was done.
 >
-> [Durán-Vinet et al. (in press)]
+> You can explore our article at [Durán-Vinet et al. CRISPR-based environmental biosurveillance assisted via artificial intelligence design of guide-RNAs (in press)](https://onlinelibrary.wiley.com/journal/26374943)
 
 ## Table of contents
 
