@@ -422,11 +422,13 @@ explore.exe .
 
 ---
 
-Results will look similar to those shown below
+Open the results from Finder (Mac) or Explorer (Windows), but not through the terminal. Results will look similar to those options shown below
 
-
+![image](https://github.com/user-attachments/assets/e8308139-6abb-43a5-9124-e64d71b37e7c)
+OR
 <img width="938" alt="image" src="https://github.com/user-attachments/assets/a1210f26-9913-42ac-83ec-beb863473ed0" />
 
+To make the results more accessible, if they are open as a text file, copy all the elements and paste them into Excel. This Excel file will be used in Step 5.
 
 An explanation of the most important values are given at [Understanding Output](Useful/Output-understanding.md)
 
@@ -436,7 +438,7 @@ An explanation of the most important values are given at [Understanding Output](
 # Making ADAPT output functional
 
 >[!NOTE]
->To accelerate and enhance the visualisation of results, we recommend using Geneious Prime for the following steps.
+>To accelerate and enhance the visualisation of results, we recommend using [Geneious Prime](https://www.geneious.com/) for the following steps.
 
 >[!TIP]
 >Remember that ADAPT generates specific spacers for LwaCas13a. However, the pipeline can also make PCR and RPA primers.
@@ -483,7 +485,8 @@ This is the specific reporter for LwaCas13a. This nuclease has a high  semi-spec
 ## Step 5. Functional guide-target pairs
 
 >[!Note]
->For the following example, we will use the best guide-target pair from the previous example. Copy and paste the sequences into Geneious Prime, and also drag and drop the test.fasta file in the same folder.
+>This section is done with [Geneious Prime](https://www.geneious.com/). Make sure to activate your educational license provided.
+>For the following example, we will use the best guide-target pair from the previous example. Copy and paste each sequence independently from the Excel file into Geneious Prime, and also drag and drop the test.fasta file in the same Geneious Prime window folder.
 
 <img width="904" alt="image" src="https://github.com/user-attachments/assets/5171f735-4047-4ae1-8524-e31bddd06090" />
 
@@ -543,6 +546,7 @@ Choose the guide-target pair and use the following configuration for your screen
 Now, the obtained guide-target pair is successfully screened.
 
 <img width="526" alt="image" src="https://github.com/user-attachments/assets/47e83ff9-f07d-4b9b-be2d-3ebab1a54bde" />
+
 
 Congratz! You've made it!!!
 
