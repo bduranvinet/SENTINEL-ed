@@ -374,7 +374,9 @@ Then, please copy the following commands and paste them into your terminal.
 >
 >Long sequences may require special commands to ensure a smooth run or eventually a server. See [Commands Explained](Useful/Commands%20explained.md) for more information.
 >
-> Ensure you are in the SENTINELv1 folder before running the command below, or an error will occur.
+>Ensure you are in the SENTINELv1 folder before running the command below, or an error will occur.
+>
+>Ensure you have the conda environment activated!
 
 
 ```bash
