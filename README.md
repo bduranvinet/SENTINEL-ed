@@ -618,7 +618,7 @@ Repeat with Rv and crRNA.
 
 Then, save the Excel file as .CSV file.
 
-Rv{544}![image](https://github.com/user-attachments/assets/90c84ee2-d5d1-4e53-ab8c-37d1dab2bb20)
+<img width="453" alt="Screenshot 2025-04-24 at 11 37 25 PM" src="https://github.com/user-attachments/assets/4179ae7e-a8a4-43d5-8b8d-048f7964ce30" />
 
 ---
 
@@ -628,7 +628,7 @@ Then, drag and drop the .CSV file into a dedicated folder in Geneious Prime. Sel
 
 Next, select the 'Fw' column as name and the 'left-primer-target-sequences' as sequences, as shown below. Then click on OK.
 
-Rv{544}![image](https://github.com/user-attachments/assets/cc515c70-f763-478f-a9da-2e42b4d7524d)
+<img width="864" alt="Screenshot 2025-04-24 at 11 36 11 PM" src="https://github.com/user-attachments/assets/d100a521-0a16-4d45-a849-150abf0560e1" />
 
 ---
 
