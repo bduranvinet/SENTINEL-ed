@@ -46,7 +46,7 @@ In particular, SENTINEL is an integrated tool for CRISPR-based environmental bio
 This ADAPT platform will provide suitable ranked guide-target pairs for the given target (set of primers and a spacer sequence, see below).
 
 ![Figure 2  ADAPT concept art](https://github.com/user-attachments/assets/bceca268-31ef-4929-a5d9-a2b60ee5a225)
-
+>Illustration from Durán-Vinet et al. (in press).
 
 The ultimate objective of SENTINEL is to streamline and accelerate CRISPR-eBx deployments, whether from air, soil or water samples. So far, only water has been tested, but air and soil environmental samples are a promising deployment.
 
