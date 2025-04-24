@@ -4,12 +4,13 @@
 # SENTINEL - Smart Environmental Nucleic-acid Tracking using Inference from Neural-networks for Early-warning Localization
 
 > [!IMPORTANT]
-> This is an educational repository for installing ADAPT dependencies for CRISPR-based environmental biosurveillance deployments (SENTINEL education or SENTINEL-ed). Many things in this repository have been adapted from the [Original ADAPT repository](https://github.com/broadinstitute/adapt/blob/main/) to enhance accessibility.
+> This is an educational repository for installing ADAPT dependencies for CRISPR-based environmental biosurveillance (CRISPR-eBx) deployments, such as SENTINEL education (SENTINEL-ed). Many things in this repository have been adapted from the [Original ADAPT repository](https://github.com/broadinstitute/adapt/blob/main/) to enhance educational accessibility. The original repository is recommended if you want to develop ADAPT further. There is a copy of the ADAPT v1.6.0 repository in this repo if ever required.
 
 >[!NOTE]
 > Our SENTINEL article has been accepted at the [Environmental DNA journal](https://onlinelibrary.wiley.com/journal/26374943), where all this pipeline and similar procedure was done.
 >
 > You can explore our article at [Durán-Vinet et al. CRISPR-based environmental biosurveillance assisted via artificial intelligence design of guide-RNAs (in press)](https://onlinelibrary.wiley.com/journal/26374943)
+
 
 ## Table of contents
 
@@ -42,14 +43,17 @@
 
 In particular, SENTINEL is an integrated tool for CRISPR-based environmental biosurveillance (CRISPR-eBx). SENTINEL currently leverages [ADAPT](https://www.nature.com/articles/s41587-022-01213-5) (Activity-informed Design with All-inclusive Patrolling of Targets) [article here]. ADAPT is an end-to-end trained artificial intelligence with ~19,000 guide-target pairs, ultimately providing a robust and comprehensive platform for target discovery in the environmental nucleic acid field that can accelerate environmental biosurveillance of emergent biosecurity threats or aid endangered species detection. ADAPT designs are trained to be highly sensitive and specific, with well-established command options that enable high customization for a flexible assay design for the user. ADAPT designs are also scalable and can be locally deployed.
 
-This ADAPT platform will provide suitable ranked guide-target pairs for the given target (set of primers and a spacer sequence).
+This ADAPT platform will provide suitable ranked guide-target pairs for the given target (set of primers and a spacer sequence, see below).
+
+![Figure 2  ADAPT concept art](https://github.com/user-attachments/assets/bceca268-31ef-4929-a5d9-a2b60ee5a225)
+
 
 The ultimate objective of SENTINEL is to streamline and accelerate CRISPR-eBx deployments, whether from air, soil or water samples. So far, only water has been tested, but air and soil environmental samples are a promising deployment.
 
 Most CRISPR-eBx deployments use an isothermal amplification method: RPA (recombinase polymerase amplification) and LAMP (Loop-mediated isothermal amplification). A quick illustration is shown below for RPA-CRISPR-Cas13a.
 
 ![RPA-CRISPR-Cas13a](Illustrations/SENTINEL.jpeg)
-
+>Illustration from Durán-Vinet et al. (in press).
 
 ---
 
@@ -425,7 +429,9 @@ explore.exe .
 Open the results from Finder (Mac) or Explorer (Windows), but not through the terminal. Results will look similar to those options shown below
 
 ![image](https://github.com/user-attachments/assets/e8308139-6abb-43a5-9124-e64d71b37e7c)
+
 OR
+
 <img width="938" alt="image" src="https://github.com/user-attachments/assets/a1210f26-9913-42ac-83ec-beb863473ed0" />
 
 To make the results more accessible, if they are open as a text file, copy all the elements and paste them into Excel. This Excel file will be used in Step 5.
@@ -441,20 +447,24 @@ An explanation of the most important values are given at [Understanding Output](
 >To accelerate and enhance the visualisation of results, we recommend using [Geneious Prime](https://www.geneious.com/) for the following steps.
 
 >[!TIP]
->Remember that ADAPT generates specific spacers for LwaCas13a. However, the pipeline can also make PCR and RPA primers.
+>Remember that ADAPT generates specific spacers for LwaCas13a. However, the pipeline can also make PCR and RPA primers for standalone applications.
 
 >[!WARNING]
->ADAPT designs are not ready to use straightaway.
+>ADAPT designs are not ready to use straightaway. We will use Geneious Prime to make them functional.
+>
 >Spacer and reverse primers (left-primers) have to be reverse-complemented.
+>
 >Forward primers have to be appended with the T7 promoter.
+>
 >Spacers must be converted to RNA and appended with a DR sequence to be functional.
 
-<img width="898" alt="image" src="https://github.com/user-attachments/assets/cc6c9aea-4734-40da-b6d9-101959fc876b" />
+
 
 ---
 
 >[!TIP]
->Save these sequences in Geneious Prime as separate sequences.
+>Save the sequences given below in Geneious Prime as separate sequences in a dedicated folder.
+><img width="898" alt="image" src="https://github.com/user-attachments/assets/cc6c9aea-4734-40da-b6d9-101959fc876b" />
 
 See below LwaCas13a DR sequence,
 
@@ -486,8 +496,19 @@ This is the specific reporter for LwaCas13a. This nuclease has a high  semi-spec
 
 >[!Note]
 >This section is done with [Geneious Prime](https://www.geneious.com/). Make sure to activate your educational license provided.
->For the following example, we will use the best guide-target pair from the previous example. Copy and paste each sequence independently from the Excel file into Geneious Prime, and also drag and drop the test.fasta file in the same Geneious Prime window folder.
+>
+>For the following example, we will use ONLY ONE GUIDE-TARGET PAIR: the best guide-target pair from the previous example, usually the first one of the list in Excel. Copy and paste each sequence independently from that guide-target pair from the Excel file into a dedicated folder in Geneious Prime, and also drag and drop the test.fasta file in the same Geneious Prime folder.
+>
+>![image](https://github.com/user-attachments/assets/2452ead5-279c-4692-b80f-9039225e6169)
+>
+>When naming guide-target pairs, it is recommended to use the crRNA position for all IDs.
 
+>[!NOTE]
+>Remember to create a dedicated folder in Geneious Prime!
+>
+>![image](https://github.com/user-attachments/assets/43f44c9a-b030-4f71-a8ff-2a3ec636f2dc)
+
+After copying and pasting a single guide-target pair in your dedicated Geneious Prime folder, it should look like below:
 <img width="904" alt="image" src="https://github.com/user-attachments/assets/5171f735-4047-4ae1-8524-e31bddd06090" />
 
 >[!WARNING]
@@ -495,7 +516,10 @@ This is the specific reporter for LwaCas13a. This nuclease has a high  semi-spec
 
 ### <ins>Step 5.1 Off-target check</ins>
 
-Because SENTINEL uses the crRNAs as the main source of specificity while RPA is enrichment only, it is only required to BLAST the spacer sequence. It is optional also to BLAST the primers, but they will have off-targets. Moreover, RPA is highly tolerant of mismatches.
+>[!CAUTION]
+>It is recommended to run BLAST on raw results.
+
+Because SENTINEL uses the crRNAs as the main source of specificity while RPA is enrichment only, it is only required to BLAST the spacer sequence. It is also optional to BLAST the primers, but they will have off-targets. Moreover, RPA is highly tolerant of mismatches.
 
 <img width="1038" alt="image" src="https://github.com/user-attachments/assets/78fc3f12-d615-47e2-9088-b9113e1682a5" />
 
@@ -509,13 +533,22 @@ As expected, the crRNA has lots of full-hit off-target sequences. This is comple
 
 ### <ins>Step 5.2 Guide-target pair preparation</ins>
 
-We will convert all guide-target pair sequences into primers.
+>[!WARNING]
+>Geneious Prime does not allow bulk 'reverse complement' of primers, MAKE 'reverse complement' before converting the sequences into primers. This is especially useful when working with bulk guide-target pairs.
 
-<img width="898" alt="image" src="https://github.com/user-attachments/assets/78935e4c-d382-42ec-a953-47b00dff0c97" />
 
-Then, we will reverse complement the Rv and crRNA using the 'reverse complement' option from the Sequence bar.
+Reverse complement the Rv and crRNA using the 'reverse complement' option from the Sequence bar.
+![image](https://github.com/user-attachments/assets/d799e6d8-6a9d-4601-91dd-0f50537b032a)
 
-<img width="758" alt="image" src="https://github.com/user-attachments/assets/2060e1ed-4217-40f1-a1b7-2b3008a78a06" />
+The sequences will change name automatically with a (reversed) after saving.
+![image](https://github.com/user-attachments/assets/3bdc442e-2586-4ad0-9e4e-fea76b9b78fa)
+
+Then, select all sequences and convert all guide-target pair sequences into primers using the Primer button.
+
+
+
+
+
 
 The sequences will change name automatically with a (reversed).
 
@@ -546,6 +579,14 @@ Choose the guide-target pair and use the following configuration for your screen
 Now, the obtained guide-target pair is successfully screened.
 
 <img width="526" alt="image" src="https://github.com/user-attachments/assets/47e83ff9-f07d-4b9b-be2d-3ebab1a54bde" />
+
+
+# ADAPT throughput result dump (optional)
+
+>[NOTE]
+>Use Excel for this optional section.
+
+For massive screenings of results, copying and pasting single guide-target pairs is not feasible. Accordingly, using the same result files in Excel, 
 
 
 Congratz! You've made it!!!
