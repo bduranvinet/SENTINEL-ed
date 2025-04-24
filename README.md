@@ -540,27 +540,33 @@ As expected, the crRNA has lots of full-hit off-target sequences. This is comple
 Reverse complement the Rv and crRNA using the 'reverse complement' option from the Sequence bar.
 ![image](https://github.com/user-attachments/assets/d799e6d8-6a9d-4601-91dd-0f50537b032a)
 
+---
+
 The sequences will change name automatically with a (reversed) after saving.
 ![image](https://github.com/user-attachments/assets/3bdc442e-2586-4ad0-9e4e-fea76b9b78fa)
 
+---
+
 Then, select all sequences and convert all guide-target pair sequences into primers using the Primer button.
+![Screenshot 2025-04-24 at 2 05 52 PM](https://github.com/user-attachments/assets/e04e8833-c996-4955-8f93-5e685193f92d)
 
+---
 
+Now, unselect all and only select your crRNA construct and convert to RNA. Then save.
+![Screenshot 2025-04-24 at 2 28 44 PM](https://github.com/user-attachments/assets/ebf14f80-f5fe-4792-ac84-f389bd398e3f)
 
-
-
-
-The sequences will change name automatically with a (reversed).
-
-Click on crRNA544, go to the Sequence bar and convert into RNA.
-
-<img width="693" alt="image" src="https://github.com/user-attachments/assets/a7121719-73f3-4a4c-b9b7-b1db09bb726d" />
+---
 
 Now, copy the LwaCas13a DR sequence, go to the crRNA544 sequence, click on 'Allow editing', click on the 5' end and paste the sequence. Repeat the same with the T7 promoter for the Fw primer.
 
 <img width="802" alt="image" src="https://github.com/user-attachments/assets/cc41bd35-9949-4134-af76-b5863d22cfe5" />
 
+crRNA:
+
 <img width="814" alt="image" src="https://github.com/user-attachments/assets/79ac2f77-9bbb-483a-a2f2-e01253d2311e" />
+
+
+Fw:
 
 <img width="806" alt="image" src="https://github.com/user-attachments/assets/b03969b0-4924-480c-9707-775210be126a" />
 
@@ -568,26 +574,63 @@ Now, copy the LwaCas13a DR sequence, go to the crRNA544 sequence, click on 'Allo
 
 ### <ins>Step 5.3 Guide-target pair screening</ins>
 
-As the final stage for all guide-target pairs, a screening has to be done. Select test.fasta, go to the primer symbol and select 'Test Saved Primers'
+As the final stage for all guide-target pairs, a screening has to be done. Select ONLY test.fasta, go to the primer symbol and select 'Test Saved Primers'
 
 <img width="346" alt="image" src="https://github.com/user-attachments/assets/ddf701dc-3014-41b2-977f-46784cb647f5" />
 
-Choose the guide-target pair and use the following configuration for your screening, then select OK.
+Click on 'Choose...' and selected the guide-target pair sequences.
+
+![Screenshot 2025-04-24 at 2 33 05 PM](https://github.com/user-attachments/assets/2ef0c170-e84c-494a-8dbb-5c27f9664a59)
+
+
+And use the following configuration for your screening, then select OK.
 
 <img width="550" alt="image" src="https://github.com/user-attachments/assets/71d3f567-8ec7-48ae-a218-dbc515820009" />
+
+---
 
 Now, the obtained guide-target pair is successfully screened.
 
 <img width="526" alt="image" src="https://github.com/user-attachments/assets/47e83ff9-f07d-4b9b-be2d-3ebab1a54bde" />
 
 
+>Congratz! You've made it!!!
+
+
 # ADAPT throughput result dump (optional)
 
->[NOTE]
+>[!NOTE]
 >Use Excel for this optional section.
 
-For massive screenings of results, copying and pasting single guide-target pairs is not feasible. Accordingly, using the same result files in Excel, 
+For massive screenings of results, copying and pasting single guide-target pairs is not feasible. Accordingly, using the same result files in Excel, insert a new full column on the left-side of the columns: 'left-primer-target-sequences'; 'right-primer-target-sequences' and 'guide-target-sequence-positions'. Use the names 'Fw', 'Rv' and 'crRNA', respectively, for these new columns.
 
+Then, type on the cell below Fw:
 
-Congratz! You've made it!!!
+=("Fw"&W2) and then scroll down the formula. W2 is the crRNA position.
+
+![Screenshot 2025-04-24 at 2 42 27 PM](https://github.com/user-attachments/assets/5d84261d-a626-44e6-a66d-b9d2884004b0)
+
+Repeat with Rv and crRNA.
+
+---
+
+Then, save the Excel file as .CSV file.
+
+Rv{544}![image](https://github.com/user-attachments/assets/90c84ee2-d5d1-4e53-ab8c-37d1dab2bb20)
+
+---
+
+Then, drag and drop the .CSV file into a dedicated folder in Geneious Prime. Select .CSV.
+
+![Screenshot 2025-04-24 at 2 46 08 PM](https://github.com/user-attachments/assets/7c442517-e897-4f7a-a2f3-b5fdedf7e3a4)
+
+Next, select the 'Fw' column as name and the 'left-primer-target-sequences' as sequences, as shown below. Then click on OK.
+
+Rv{544}![image](https://github.com/user-attachments/assets/cc515c70-f763-478f-a9da-2e42b4d7524d)
+
+---
+
+All Fw primers were inserted in bulk into Geneious Prime, and repeat the same steps but for your Rv and crRNAs sequences. Then you can repeat the Section 5 of this manual.
+
+![Screenshot 2025-04-24 at 2 48 36 PM](https://github.com/user-attachments/assets/b53e604e-15c7-4a9c-aae4-fbfe05f58f74)
 
