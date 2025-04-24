@@ -16,6 +16,7 @@
 
 * [SENTINEL introduction](#sentinel-introduction)
 * [Quick glossary](#quick-glossary)
+* [Before starting](#before-starting)
 * [Installing ADAPT](#installing-adapt-v160)
   - [Dependencies](#dependencies)
   - [Step 0. Installing Windows Linux Subsystem](#step-0-installing-windows-linux-subsystem)
@@ -38,6 +39,7 @@
     - [Step 5.1: Off-target check](#step-51-off-target-check)
     - [Step 5.2: Guide-target pair preparation](#step-52-guide-target-pair-preparation)
     - [Step 5.3: Guide-target pair screening](#step-53-guide-target-pair-screening)
+- [ADAPT throughput result dump (optional)](#adapt-throughput-result-dump-optional)
  
 ## SENTINEL introduction
 
