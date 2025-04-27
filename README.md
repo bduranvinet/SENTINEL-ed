@@ -436,7 +436,7 @@ OR
 
 <img width="938" alt="image" src="https://github.com/user-attachments/assets/a1210f26-9913-42ac-83ec-beb863473ed0" />
 
-To make the results more accessible, if they are open as a text file, copy all the elements and paste them into Excel. This Excel file will be used in Step 5.
+To make the results more accessible, if they are open as a text file, copy all the elements and paste them into Excel. This Excel file will be used in Step 5. Alternatively, you can also open it directly as an Excel file.
 
 An explanation of the most important values are given at [Understanding Output](Useful/Output-understanding.md)
 
