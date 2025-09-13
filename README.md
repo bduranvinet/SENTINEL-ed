@@ -7,9 +7,27 @@
 > This is an educational repository for installing ADAPT dependencies for CRISPR-based environmental biosurveillance (CRISPR-eBx) deployments, such as SENTINEL education (SENTINEL-ed). Many things in this repository have been adapted from the [Original ADAPT repository](https://github.com/broadinstitute/adapt/blob/main/) to enhance educational accessibility. The original repository is recommended if you want to develop ADAPT further. There is a copy of the ADAPT v1.6.0 repository in this repo if ever required.
 
 >[!NOTE]
-> Our SENTINEL article has been accepted at the [Environmental DNA journal](https://onlinelibrary.wiley.com/journal/26374943), where all this pipeline and similar procedure was done.
+> Our SENTINEL article has been accepted at the [Environmental DNA journal](https://onlinelibrary.wiley.com/journal/26374943), where all this pipeline and similar procedures were done.
 >
-> You can explore our article at [Durán-Vinet et al. CRISPR-based environmental biosurveillance assisted via artificial intelligence design of guide-RNAs (in press)](https://onlinelibrary.wiley.com/journal/26374943)
+> You can explore our article at [Durán-Vinet et al. CRISPR-based environmental biosurveillance assisted via artificial intelligence design of guide-RNAs (2025)](https://onlinelibrary.wiley.com/doi/10.1002/edn3.70105)
+
+# Current supporters
+
+[Genetics Otago (GO)](https://www.otago.ac.nz/genetics/nz)
+
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/c88310f3-5684-4867-87b8-4c1ca20c212b" />
+
+[Southern Environmental DNA Society (SeDNAs)](https://sednasociety.com/)
+
+<img width="135" height="100" alt="image" src="https://github.com/user-attachments/assets/365e2113-0eb7-4e11-8fe6-cd3f671c9444" />
+
+Consortium for the Application of CRISPR in Ecology (CACE)
+
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/567dd202-859f-4708-b75d-e2dee2af7d4c" />
+
+# Want to sponsor or support SENTINEL?
+
+Get in touch! You can contact GO, seDNAs or directly to benjamin.duran-vinet@postgrad.otago.ac.nz
 
 
 ## Table of contents
