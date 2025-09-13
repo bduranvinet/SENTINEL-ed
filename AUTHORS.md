@@ -1,6 +1,6 @@
 The main authors who contributed to building and testing SENTINEL are listed below:
 
-Professor Neil J. Gemmell [Google Scholar](https://scholar.google.co.nz/citations?user=XGE4mdAAAAAJ&hl=en)
+Distinguished Professor Neil J. Gemmell [Google Scholar](https://scholar.google.co.nz/citations?user=XGE4mdAAAAAJ&hl=en)
 
 Dr Jo-Ann Stanton 
 
